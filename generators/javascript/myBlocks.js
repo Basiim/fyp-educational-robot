@@ -32,13 +32,13 @@ Blockly.JavaScript['mini_game'] = function(block) {
 }\
                 \n" +
         "else{\
-            \nvar x = document.querySelector('#test2');\
+            \nvar x = document.querySelector('#test3');\
             \nvar y = x.style.backgroundColor;\
             \nlet z = rgbToHex(y);\
             \nif(z == '" + colour_color + "')\
-                document.getElementById('res2').innerHTML = 'Circle2: correct!';\
+                document.getElementById('res3').innerHTML = 'Circle2: correct!';\
             \nelse\
-                document.getElementById('res2').innerHTML = 'Circle2: wrong!';\
+                document.getElementById('res3').innerHTML = 'Circle2: wrong!';\
 }\
                 \n";
     return code;
