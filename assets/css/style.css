@@ -1,0 +1,66 @@
+@import url('https://fonts.googleapis.com/css2?family=Prompt&display=swap');
+body {
+    font-family: prompt, sans-serif;
+    margin: 3rem 3rem 3rem 3rem;
+}
+
+.main {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.copy {
+    position: fixed;
+    bottom: 1%;
+    left: 45%;
+    right: auto;
+}
+
+#test1 {
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+}
+
+#test2 {
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+}
+
+#test3 {
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+}
+
+button {
+    background-color: #008CBA;
+    /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #008bbaa2;
+}

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <title>FYP</title>
+</head>
+
+<body>
+    <div class="header">
+        <h1>FYP Progress</h1>
+    </div>
+    <p>Mini Game: In this game you must match the colors of three circles to their corresponding blocks inside the workspace</p>
+    <div class="main">
+        <!-- BLOCKLY WORKSPACE -->
+        <div id="blocklyDiv" style="height: 480px; width: 640px;"></div>
+        <xml id="toolbox" style="display: none">
+            <block type="mini_game"></block>
+        </xml>
+        <div id="test1">Circle 1</div>
+        <div id="test2">Circle 2</div>
+        <div id="test3">Circle 3</div>
+    </div>
+    <button onclick="runCode()">Run Code</button>
+    <button onclick="showCode()">Show Code</button>
+    <div class="result">
+        <h1>Result</h1>
+        <h3 id="res1">Circle1:</h3>
+        <h3 id="res2">Circle2:</h3>
+        <h3 id="res3">Circle3:</h3>
+    </div>
+    <div class="copy">Made By Basim and Talha using Blockly</div>
+    <!-- SCRIPTS -->
+    <script src="assets/js/index.js"></script>
+    <script src="blockly_compressed.js"></script>
+    <script src="blocks_compressed.js"></script>
+    <script src="blocks/myBlocks.js"></script>
+    <script src="javascript_compressed.js"></script>
+    <script src="generators/javascript/myBlocks.js"></script>
+    <script src="msg/js/en.js"></script>
+    <script>
+        var workspace = Blockly.inject('blocklyDiv', {
+            toolbox: document.getElementById('toolbox'),
+            grid: {
+                spacing: 20,
+                length: 3,
+                colour: '#ccc',
+                snap: true
+            },
+            trashcan: true,
+            zoom: {
+                controls: true,
+                wheel: true,
+                startScale: 1.0,
+                maxScale: 3,
+                minScale: 0.3,
+                scaleSpeed: 1.2,
+                pinch: true
+            },
+
+        });
+
+        function showCode() {
+            // Generate JavaScript code and display it.
+            Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
+            var code = Blockly.JavaScript.workspaceToCode(workspace);
+            alert(code);
+        }
+
+        function runCode() {
+            // Generate JavaScript code and run it.
+            window.LoopTrap = 1000;
+            Blockly.JavaScript.INFINITE_LOOP_TRAP =
+                'if (--window.LoopTrap == 0) throw "Infinite loop.";\n';
+            var code = Blockly.JavaScript.workspaceToCode(workspace);
+            Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
+            try {
+                eval(code);
+            } catch (e) {
+                alert(e);
+            }
+        }
+    </script>
+</body>
+
+</html>
