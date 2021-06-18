@@ -31,12 +31,12 @@ const packageDistribution = 'dist';
  * @param {Array.<Object>} dependencies An array of dependencies to inject.
  */
 function packageUMD(namespace, dependencies) {
-  return gulp.umd({
-    dependencies: function () { return dependencies; },
-    namespace: function () { return namespace; },
-    exports: function () { return namespace; },
-    template: path.join(__dirname, `${blocklyRoot}/scripts/package/templates/umd.template`)
-  });
+    return gulp.umd({
+        dependencies: function() { return dependencies; },
+        namespace: function() { return namespace; },
+        exports: function() { return namespace; },
+        template: path.join(__dirname, `${blocklyRoot}/scripts/package/templates/umd.template`)
+    });
 };
 
 /**
@@ -45,21 +45,20 @@ function packageUMD(namespace, dependencies) {
  * @param {Array.<Object>} dependencies An array of dependencies to inject.
  */
 function packageCommonJS(namespace, dependencies) {
-  return gulp.umd({
-    dependencies: function () { return dependencies; },
-    namespace: function () { return namespace; },
-    exports: function () { return namespace; },
-    template: path.join(__dirname, `${blocklyRoot}/scripts/package/templates/node.template`)
-  });
+    return gulp.umd({
+        dependencies: function() { return dependencies; },
+        namespace: function() { return namespace; },
+        exports: function() { return namespace; },
+        template: path.join(__dirname, `${blocklyRoot}/scripts/package/templates/node.template`)
+    });
 };
 
 /**
  * This task copies source files into the distribution directory.
  */
 function packageSources() {
-  return gulp.src(['core/**/**.js', 'blocks/**.js', 'generators/**/**.js'],
-      {base: '.'})
-    .pipe(gulp.dest(packageDistribution));
+    return gulp.src(['core/**/**.js', 'blocks/**.js', 'generators/**/**.js'], { base: '.' })
+        .pipe(gulp.dest(packageDistribution));
 };
 
 /**
@@ -67,8 +66,8 @@ function packageSources() {
  * distribution directory.
  */
 function packageCompressed() {
-  return gulp.src('*_compressed.js?(.map)')
-    .pipe(gulp.dest(packageDistribution));
+    return gulp.src('*_compressed.js?(.map)')
+        .pipe(gulp.dest(packageDistribution));
 };
 
 /**
@@ -76,14 +75,14 @@ function packageCompressed() {
  * @example import 'blockly/blockly';
  */
 function packageBlockly() {
-  return gulp.src('scripts/package/blockly.js')
-    .pipe(packageUMD('Blockly', [{
-        name: 'Blockly',
-        amd: './blockly_compressed',
-        cjs: './blockly_compressed',
-      }]))
-    .pipe(gulp.rename('blockly.js'))
-    .pipe(gulp.dest(packageDistribution));
+    return gulp.src('scripts/package/blockly.js')
+        .pipe(packageUMD('Blockly', [{
+            name: 'Blockly',
+            amd: './blockly_compressed',
+            cjs: './blockly_compressed',
+        }]))
+        .pipe(gulp.rename('blockly.js'))
+        .pipe(gulp.dest(packageDistribution));
 };
 
 /**
@@ -91,14 +90,14 @@ function packageBlockly() {
  * @example import 'blockly/blocks';
  */
 function packageBlocks() {
-  return gulp.src('scripts/package/blocks.js')
-    .pipe(packageUMD('Blockly.Blocks', [{
-        name: 'Blockly',
-        amd: './blocks_compressed',
-        cjs: './blocks_compressed',
-      }]))
-    .pipe(gulp.rename('blocks.js'))
-    .pipe(gulp.dest(packageDistribution));
+    return gulp.src('scripts/package/blocks.js')
+        .pipe(packageUMD('Blockly.Blocks', [{
+            name: 'Blockly',
+            amd: './blocks_compressed',
+            cjs: './blocks_compressed',
+        }]))
+        .pipe(gulp.rename('blocks.js'))
+        .pipe(gulp.dest(packageDistribution));
 };
 
 /**
@@ -108,14 +107,14 @@ function packageBlocks() {
  * @example import * as Blockly from 'blockly';
  */
 function packageIndex() {
-  return gulp.src('scripts/package/index.js')
-    .pipe(packageUMD('Blockly', [{
-        name: 'Blockly',
-        amd: './browser',
-        cjs: './node',
-      }]))
-    .pipe(gulp.rename('index.js'))
-    .pipe(gulp.dest(packageDistribution));
+    return gulp.src('scripts/package/index.js')
+        .pipe(packageUMD('Blockly', [{
+            name: 'Blockly',
+            amd: './browser',
+            cjs: './node',
+        }]))
+        .pipe(gulp.rename('index.js'))
+        .pipe(gulp.dest(packageDistribution));
 };
 
 /**
@@ -128,26 +127,26 @@ function packageIndex() {
  * @example import * as Blockly from 'blockly/browser';
  */
 function packageBrowser() {
-  return gulp.src('scripts/package/browser/index.js')
-    .pipe(packageUMD('Blockly', [{
-        name: 'Blockly',
-        amd: './core-browser',
-        cjs: './core-browser',
-      },{
-        name: 'En',
-        amd: './msg/en',
-        cjs: './msg/en',
-      },{
-        name: 'BlocklyBlocks',
-        amd: './blocks',
-        cjs: './blocks',
-      },{
-        name: 'BlocklyJS',
-        amd: './javascript',
-        cjs: './javascript',
-      }]))
-    .pipe(gulp.rename('browser.js'))
-    .pipe(gulp.dest(packageDistribution));
+    return gulp.src('scripts/package/browser/index.js')
+        .pipe(packageUMD('Blockly', [{
+            name: 'Blockly',
+            amd: './core-browser',
+            cjs: './core-browser',
+        }, {
+            name: 'En',
+            amd: './msg/en',
+            cjs: './msg/en',
+        }, {
+            name: 'BlocklyBlocks',
+            amd: './blocks',
+            cjs: './blocks',
+        }, {
+            name: 'BlocklyJS',
+            amd: './javascript',
+            cjs: './javascript',
+        }]))
+        .pipe(gulp.rename('browser.js'))
+        .pipe(gulp.dest(packageDistribution));
 };
 
 /**
@@ -159,14 +158,14 @@ function packageBrowser() {
  * @example import * as Blockly from 'blockly/core';
  */
 function packageCore() {
-  return gulp.src('scripts/package/browser/core.js')
-    .pipe(packageUMD('Blockly', [{
-        name: 'Blockly',
-        amd: './blockly',
-        cjs: './blockly',
-      }]))
-    .pipe(gulp.rename('core-browser.js'))
-    .pipe(gulp.dest(packageDistribution));
+    return gulp.src('scripts/package/browser/core.js')
+        .pipe(packageUMD('Blockly', [{
+            name: 'Blockly',
+            amd: './blockly',
+            cjs: './blockly',
+        }]))
+        .pipe(gulp.rename('core-browser.js'))
+        .pipe(gulp.dest(packageDistribution));
 };
 
 /**
@@ -178,34 +177,36 @@ function packageCore() {
  * @example import * as Blockly from 'blockly/node';
  */
 function packageNode() {
-  return gulp.src('scripts/package/node/index.js')
-    .pipe(packageCommonJS('Blockly', [{
-        name: 'Blockly',
-        cjs: './core',
-      },{
-        name: 'En',
-        cjs: './msg/en',
-      },{
-        name: 'BlocklyBlocks',
-        cjs: './blocks',
-      },{
-        name: 'BlocklyJS',
-        cjs: './javascript',
-      },{
-        name: 'BlocklyPython',
-        cjs: './python',
-      },{
-        name: 'BlocklyPHP',
-        cjs: './php',
-      },{
-        name: 'BlocklyLua',
-        cjs: './lua',
-      }, {
-        name: 'BlocklyDart',
-        cjs: './dart',
-      }]))
-    .pipe(gulp.rename('node.js'))
-    .pipe(gulp.dest(packageDistribution));
+    return gulp.src('scripts/package/node/index.js')
+        .pipe(packageCommonJS('Blockly', [{
+                name: 'Blockly',
+                cjs: './core',
+            }, {
+                name: 'En',
+                cjs: './msg/en',
+            }, {
+                name: 'BlocklyBlocks',
+                cjs: './blocks',
+            }, {
+                name: 'BlocklyJS',
+                cjs: './javascript',
+            }
+            /*,{
+                    name: 'BlocklyPython',
+                    cjs: './python',
+                  },{
+                    name: 'BlocklyPHP',
+                    cjs: './php',
+                  },{
+                    name: 'BlocklyLua',
+                    cjs: './lua',
+                  }, {
+                    name: 'BlocklyDart',
+                    cjs: './dart',
+                  }*/
+        ]))
+        .pipe(gulp.rename('node.js'))
+        .pipe(gulp.dest(packageDistribution));
 };
 
 /**
@@ -217,14 +218,14 @@ function packageNode() {
  * @example import * as Blockly from 'blockly/core';
  */
 function packageNodeCore() {
-  return gulp.src('scripts/package/node/core.js')
-    .pipe(packageCommonJS('Blockly', [{
-        name: 'Blockly',
-        amd: './blockly',
-        cjs: './blockly',
-      }]))
-    .pipe(gulp.rename('core.js'))
-    .pipe(gulp.dest(packageDistribution));
+    return gulp.src('scripts/package/node/core.js')
+        .pipe(packageCommonJS('Blockly', [{
+            name: 'Blockly',
+            amd: './blockly',
+            cjs: './blockly',
+        }]))
+        .pipe(gulp.rename('core.js'))
+        .pipe(gulp.dest(packageDistribution));
 };
 
 /**
@@ -234,18 +235,18 @@ function packageNodeCore() {
  * @param {string} namespace Export namespace.
  */
 function packageGenerator(file, rename, namespace) {
-  return gulp.src(`scripts/package/${rename}`)
-    .pipe(packageUMD(`Blockly${namespace}`, [{
-        name: 'Blockly',
-        amd: './core',
-        cjs: './core',
-      }, {
-        name: `Blockly${namespace}`,
-        amd: `./${file}`,
-        cjs: `./${file}`,
-      }]))
-    .pipe(gulp.rename(rename))
-    .pipe(gulp.dest(packageDistribution));
+    return gulp.src(`scripts/package/${rename}`)
+        .pipe(packageUMD(`Blockly${namespace}`, [{
+            name: 'Blockly',
+            amd: './core',
+            cjs: './core',
+        }, {
+            name: `Blockly${namespace}`,
+            amd: `./${file}`,
+            cjs: `./${file}`,
+        }]))
+        .pipe(gulp.rename(rename))
+        .pipe(gulp.dest(packageDistribution));
 };
 
 /**
@@ -253,57 +254,57 @@ function packageGenerator(file, rename, namespace) {
  * @example import 'blockly/javascript';
  */
 function packageJavascript() {
-  return packageGenerator('javascript_compressed.js', 'javascript.js', 'JavaScript');
+    return packageGenerator('javascript_compressed.js', 'javascript.js', 'JavaScript');
 };
 
 /**
  * This task wraps python_compressed.js into a UMD module.
  * @example import 'blockly/python';
  */
-function packagePython() {
+/*function packagePython() {
   return packageGenerator('python_compressed.js', 'python.js', 'Python');
-};
+};*/
 
 /**
  * This task wraps lua_compressed.js into a UMD module.
  * @example import 'blockly/lua';
  */
-function packageLua() {
+/*function packageLua() {
   return packageGenerator('lua_compressed.js', 'lua.js', 'Lua');
-};
+};*/
 
 /**
  * This task wraps dart_compressed.js into a UMD module.
  * @example import 'blockly/dart';
  */
-function packageDart() {
+/*function packageDart() {
   return packageGenerator('dart_compressed.js', 'dart.js', 'Dart');
-};
+};*/
 
 /**
  * This task wraps php_compressed.js into a UMD module.
  * @example import 'blockly/php';
  */
-function packagePHP() {
+/*function packagePHP() {
   return packageGenerator('php_compressed.js', 'php.js', 'PHP');
-};
+};*/
 
 /**
  * This task wraps each of the msg/js/* files into a UMD module.
  * @example import * as En from 'blockly/msg/en';
  */
 function packageLocales() {
-  // Remove references to goog.provide and goog.require.
-  return gulp.src('msg/js/*.js')
-      .pipe(gulp.replace(/goog\.[^\n]+/g, ''))
-      .pipe(gulp.insert.prepend(`
+    // Remove references to goog.provide and goog.require.
+    return gulp.src('msg/js/*.js')
+        .pipe(gulp.replace(/goog\.[^\n]+/g, ''))
+        .pipe(gulp.insert.prepend(`
       var Blockly = {};Blockly.Msg={};`))
-      .pipe(packageUMD('Blockly.Msg', [{
-          name: 'Blockly',
-          amd: '../core',
-          cjs: '../core',
+        .pipe(packageUMD('Blockly.Msg', [{
+            name: 'Blockly',
+            amd: '../core',
+            cjs: '../core',
         }]))
-      .pipe(gulp.dest(`${packageDistribution}/msg`));
+        .pipe(gulp.dest(`${packageDistribution}/msg`));
 };
 
 /**
@@ -313,38 +314,38 @@ function packageLocales() {
  * @example <script src="https://unpkg.com/blockly/blockly.min.js"></script>
  */
 function packageUMDBundle() {
-  var srcs = [
-    'blockly_compressed.js',
-    'msg/js/en.js',
-    'blocks_compressed.js',
-    'javascript_compressed.js'
-  ];
-  return gulp.src(srcs)
-    .pipe(gulp.concat('blockly.min.js'))
-    .pipe(gulp.dest(`${packageDistribution}`))
+    var srcs = [
+        'blockly_compressed.js',
+        'msg/js/en.js',
+        'blocks_compressed.js',
+        'javascript_compressed.js'
+    ];
+    return gulp.src(srcs)
+        .pipe(gulp.concat('blockly.min.js'))
+        .pipe(gulp.dest(`${packageDistribution}`))
 };
 
 /**
  * This task copies all the media/* files into the distribution directory.
  */
 function packageMedia() {
-  return gulp.src('./media/*')
-    .pipe(gulp.dest(`${packageDistribution}/media`));
+    return gulp.src('./media/*')
+        .pipe(gulp.dest(`${packageDistribution}/media`));
 };
 
 /**
  * This task copies the package.json file into the distribution directory.
  */
 function packageJSON(cb) {
-  const packageJson = getPackageJson();
-  const json = Object.assign({}, packageJson);
-  delete json['scripts'];
-  if (!fs.existsSync(packageDistribution)) {
-    fs.mkdirSync(packageDistribution);
-  }
-  fs.writeFileSync(`${packageDistribution}/package.json`,
-      JSON.stringify(json, null, 2));
-  cb();
+    const packageJson = getPackageJson();
+    const json = Object.assign({}, packageJson);
+    delete json['scripts'];
+    if (!fs.existsSync(packageDistribution)) {
+        fs.mkdirSync(packageDistribution);
+    }
+    fs.writeFileSync(`${packageDistribution}/package.json`,
+        JSON.stringify(json, null, 2));
+    cb();
 };
 
 /**
@@ -352,8 +353,8 @@ function packageJSON(cb) {
  * This file is what developers will see at https://www.npmjs.com/package/blockly.
  */
 function packageReadme() {
-  return gulp.src('./scripts/package/README.md')
-    .pipe(gulp.dest(`${packageDistribution}`));
+    return gulp.src('./scripts/package/README.md')
+        .pipe(gulp.dest(`${packageDistribution}`));
 };
 
 /**
@@ -362,36 +363,36 @@ function packageReadme() {
  * The bundled declaration file is referenced in package.json in the types property.
  */
 function packageDTS() {
-  return gulp.src(['./typings/*.d.ts', './typings/msg/*.d.ts'], {base: './typings'})
-    .pipe(gulp.dest(`${packageDistribution}`));
+    return gulp.src(['./typings/*.d.ts', './typings/msg/*.d.ts'], { base: './typings' })
+        .pipe(gulp.dest(`${packageDistribution}`));
 };
 
 /**
  * This task prepares the NPM distribution files under the /dist directory.
  */
 const package = gulp.parallel(
-  packageIndex,
-  packageSources,
-  packageCompressed,
-  packageBrowser,
-  packageNode,
-  packageCore,
-  packageNodeCore,
-  packageBlockly,
-  packageBlocks,
-  packageJavascript,
-  packagePython,
-  packageLua,
-  packageDart,
-  packagePHP,
-  packageLocales,
-  packageMedia,
-  packageUMDBundle,
-  packageJSON,
-  packageReadme,
-  packageDTS
+    packageIndex,
+    packageSources,
+    packageCompressed,
+    packageBrowser,
+    packageNode,
+    packageCore,
+    packageNodeCore,
+    packageBlockly,
+    packageBlocks,
+    packageJavascript,
+    //packagePython,
+    //packageLua,
+    //packageDart,
+    //packagePHP,
+    packageLocales,
+    packageMedia,
+    packageUMDBundle,
+    packageJSON,
+    packageReadme,
+    packageDTS
 );
 
 module.exports = {
-  package: package,
+    package: package,
 };
