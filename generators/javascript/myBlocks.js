@@ -21,26 +21,26 @@ Blockly.JavaScript['mini_game'] = function(block) {
                         document.getElementById('res1').innerHTML = 'Circle1: wrong!';\
 }\
                 \n" +
-        `else if(${value_circle_no} == 2){
-                    \nvar x = document.querySelector('#test2');
-                    \nvar y = x.style.backgroundColor;
-                    \nlet z = rgbToHex(y);
-                    \nif(z == '${colour_color}')
-                        document.getElementById('res2').innerHTML = "Circle2: correct!";
-                    \nelse
-                        document.getElementById('res2').innerHTML = "Circle2: wrong!";
-}
-                \n` +
-        `else{
-                    \nvar x = document.querySelector('#test3');
-                    \nvar y = x.style.backgroundColor;
-                    \nlet z = rgbToHex(y);
-                    \nif(z == '${colour_color}')
-                        document.getElementById('res3').innerHTML = "Circle3: correct!";
-                    \nelse
-                        document.getElementById('res3').innerHTML = "Circle3: wrong!";
-}
-                \n`;
+        "else if(" + value_circle_no + " == 2){\
+            \nvar x = document.querySelector('#test2');\
+            \nvar y = x.style.backgroundColor;\
+            \nlet z = rgbToHex(y);\
+            \nif(z == '" + colour_color + "')\
+                document.getElementById('res2').innerHTML = 'Circle2: correct!';\
+            \nelse\
+                document.getElementById('res2').innerHTML = 'Circle2: wrong!';\
+}\
+                \n" +
+        "else{\
+            \nvar x = document.querySelector('#test2');\
+            \nvar y = x.style.backgroundColor;\
+            \nlet z = rgbToHex(y);\
+            \nif(z == '" + colour_color + "')\
+                document.getElementById('res2').innerHTML = 'Circle2: correct!';\
+            \nelse\
+                document.getElementById('res2').innerHTML = 'Circle2: wrong!';\
+}\
+                \n";
     return code;
 };
 
