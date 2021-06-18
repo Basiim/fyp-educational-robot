@@ -2,7 +2,7 @@ Blockly.JavaScript['color_select'] = function(block) {
     var colour_color = block.getFieldValue('color');
     var value_color_input = Blockly.JavaScript.valueToCode(block, 'color_input', Blockly.JavaScript.ORDER_ATOMIC);
     // TODO: Assemble JavaScript into code variable.
-    var code = `document.getElementById('test').style.backgroundColor = '${colour_color}'\n`;
+    var code = "document.getElementById('test').style.backgroundColor = " + colour_color + "\n";
     return code;
 };
 Blockly.JavaScript['mini_game'] = function(block) {
