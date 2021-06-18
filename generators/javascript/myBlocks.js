@@ -36,9 +36,9 @@ Blockly.JavaScript['mini_game'] = function(block) {
             \nvar y = x.style.backgroundColor;\
             \nlet z = rgbToHex(y);\
             \nif(z == '" + colour_color + "')\
-                document.getElementById('res3').innerHTML = 'Circle2: correct!';\
+                document.getElementById('res3').innerHTML = 'Circle3: correct!';\
             \nelse\
-                document.getElementById('res3').innerHTML = 'Circle2: wrong!';\
+                document.getElementById('res3').innerHTML = 'Circle3: wrong!';\
 }\
                 \n";
     return code;
