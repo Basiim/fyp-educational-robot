@@ -1,7 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Ramabhadra&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Prompt&display=swap');
 body {
-    background-color: aliceblue;
-    font-family: 'Ramabhadra', sans-serif;
+    background-color: whitesmoke;
+    font-family: prompt, sans-serif;
     margin: 3rem 3rem 0 3rem;
 }
 
@@ -13,8 +13,8 @@ body {
 
 .copy {
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
 }
 
 #test1 {
