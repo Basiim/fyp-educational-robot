@@ -33,15 +33,10 @@
         <h3 id="res3">Circle3:</h3>
     </div>
     <div class="copy">Made By Basim and Talha using Blockly</div>
-    <!-- SCRIPTS -->
+    <script src="https://unpkg.com/blockly/blockly.min.js"></script>
     <script src="assets/js/index.js"></script>
-    <script src="blockly_compressed.js"></script>
-    <script src="blocks_compressed.js"></script>
     <script src="blocks/myBlocks.js"></script>
     <script src="generators/javascript/myBlocks.js"></script>
-    <script src="javascript_compressed.js"></script>
-    <script src="generators/javascript/myBlocks.js"></script>
-    <script src="msg/js/en.js"></script>
     <script>
         var workspace = Blockly.inject('blocklyDiv', {
             toolbox: document.getElementById('toolbox'),
@@ -60,8 +55,7 @@
                 minScale: 0.3,
                 scaleSpeed: 1.2,
                 pinch: true
-            },
-
+            }
         });
 
         function showCode() {
