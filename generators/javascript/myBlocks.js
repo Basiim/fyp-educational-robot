@@ -11,48 +11,7 @@ Blockly.JavaScript['mini_game'] = function(block) {
     var colour_color = block.getFieldValue('color');
     var value_circle_color = Blockly.JavaScript.valueToCode(block, 'circle_color', Blockly.JavaScript.ORDER_ATOMIC);
     // TODO: Assemble JavaScript into code variable.
-    var code = "\nif(" + value_circle_no + " == 1){\
-                    \nvar x = document.querySelector('#test1');\
-                    \nvar y = x.style.backgroundColor;\
-                    \nlet z = rgbToHex(y);\
-                    \nif(z == '" + colour_color + "'){\
-                        document.getElementById('res1').innerHTML = 'Circle1: correct!';\
-                        document.getElementById('res1').style.color = 'green';\
-                    }\
-                    \nelse{\
-                        document.getElementById('res1').innerHTML = 'Circle1: incorrect!';\
-                        document.getElementById('res1').style.color = 'red';\
-                    }\
-}\
-                \n" +
-        "else if(" + value_circle_no + " == 2){\
-            \nvar x = document.querySelector('#test2');\
-            \nvar y = x.style.backgroundColor;\
-            \nlet z = rgbToHex(y);\
-            \nif(z == '" + colour_color + "'){\
-                document.getElementById('res2').innerHTML = 'Circle2: correct!';\
-                document.getElementById('res2').style.color = 'green';\
-            }\
-            \nelse{\
-                document.getElementById('res2').innerHTML = 'Circle2: incorrect!';\
-                document.getElementById('res2').style.color = 'red';\
-            }\
-}\
-                \n" +
-        "else{\
-            \nvar x = document.querySelector('#test3');\
-            \nvar y = x.style.backgroundColor;\
-            \nlet z = rgbToHex(y);\
-            \nif(z == '" + colour_color + "'){\
-                document.getElementById('res3').innerHTML = 'Circle3: correct!';\
-                document.getElementById('res3').style.color = 'green';\
-            }\
-            \nelse{\
-                document.getElementById('res3').innerHTML = 'Circle3: incorrect!';\
-                document.getElementById('res3').style.color = 'red';\
-            }\
-}\
-                \n";
+    var code = "hello";
     return code;
 };
 
