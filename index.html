@@ -20,20 +20,12 @@
         <xml id="toolbox" style="display: none">
             <block type="mini_game"></block>
         </xml>
-        <div id="test1">Circle 1</div>
-        <div id="test2">Circle 2</div>
-        <div id="test3">Circle 3</div>
     </div>
-    <button onclick="runCode()">Run Code</button>
+    <button class="codeBtn">Run Code</button>
     <button onclick="showCode()">Show Code</button>
-    <div class="result">
-        <h1>Result</h1>
-        <h3 id="res1">Circle1:</h3>
-        <h3 id="res2">Circle2:</h3>
-        <h3 id="res3">Circle3:</h3>
-    </div>
     <div class="copy">Made By Basim and Talha using Blockly</div>
     <script src="https://unpkg.com/blockly/blockly.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="assets/js/index.js"></script>
     <script src="blocks/myBlocks.js"></script>
     <script src="generators/javascript/myBlocks.js"></script>
@@ -64,20 +56,37 @@
             var code = Blockly.JavaScript.workspaceToCode(workspace);
             alert(code);
         }
-
-        function runCode() {
-            // Generate JavaScript code and run it.
-            window.LoopTrap = 1000;
-            Blockly.JavaScript.INFINITE_LOOP_TRAP =
-                'if (--window.LoopTrap == 0) throw "Infinite loop.";\n';
-            var code = Blockly.JavaScript.workspaceToCode(workspace);
-            Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
-            try {
-                eval(code);
-            } catch (e) {
-                alert(e);
-            }
+        const url = "https://jsonplaceholder.typicode.com/posts/";
+        const data = {
+            name: "Said",
+            id: 23
         }
+        $('.codeBtn').click(function() {
+                $.post(url, data, function(data, status) {
+                    console.log(`${data} and status is ${status}`);
+                });
+            })
+            /*function runCode() {
+                // Generate JavaScript code and run it.
+                window.LoopTrap = 1000;
+                Blockly.JavaScript.INFINITE_LOOP_TRAP =
+                    'if (--window.LoopTrap == 0) throw "Infinite loop.";\n';
+                var code = Blockly.JavaScript.workspaceToCode(workspace);
+                Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
+                try {
+                    eval(code);
+                } catch (e) {
+                    alert(e);
+                }
+                const url = "https://jsonplaceholder.typicode.com/posts/";
+                const data = {
+                    name: "Basim",
+                    id: 85
+                }
+                $.post(url, data, function(data, status) {
+                    console.log(`${data} and status is ${status}`);
+                });
+            }*/
     </script>
 </body>
 
