@@ -45,20 +45,33 @@ Blockly.Blocks['mini_game'] = {
 };
 Blockly.Blocks['forward'] = {
     init: function() {
-      this.appendValueInput("direction")
-          .setCheck("String")
-          .appendField("forward");
-      this.setColour(195);
+      this.appendDummyInput()
+          .appendField("Forward");
+      this.setPreviousStatement(true, null);
+      this.setNextStatement(true, null);
+      this.setColour(60);
    this.setTooltip("");
    this.setHelpUrl("");
     }
 };
 Blockly.Blocks['backward'] = {
     init: function() {
-      this.appendValueInput("direction")
-          .setCheck("String")
+      this.appendDummyInput()
           .appendField("backward");
-      this.setColour(195);
+      this.setPreviousStatement(true, null);
+      this.setNextStatement(true, null);
+      this.setColour(60);
+   this.setTooltip("");
+   this.setHelpUrl("");
+    }
+};
+Blockly.Blocks['input'] = {
+    init: function() {
+      this.appendDummyInput()
+          .appendField("main");
+      this.appendStatementInput("commands")
+          .setCheck("String");
+      this.setColour(60);
    this.setTooltip("");
    this.setHelpUrl("");
     }
