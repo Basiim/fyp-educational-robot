@@ -13,6 +13,7 @@ app.get("/", function(req, res) {
     console.log("Index Loaded");
     res.sendFile(__dirname + "/index.html");
 });
+
 app.listen(port, function() {
     console.log("Server is Live");
 })

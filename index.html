@@ -21,15 +21,17 @@
             <block type="input"></block>
             <block type="forward"></block>
             <block type="backward"></block>
+            <block type="delay"></block>
+            <block type="math_number"></block>
         </xml>
     </div>
-    <button class="codeBtn">Run Code</button>
+    <button onclick="runCode()">Run Code</button>
     <button onclick="showCode()">Show Code</button>
     <div class="copy">Made By Basim and Talha using Blockly</div>
     <script src="https://unpkg.com/blockly/blockly.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="assets/js/index.js"></script>
     <script src="blocks/myBlocks.js"></script>
+    <script src="assets/js/custom_cat.js"></script>
     <script src="generators/javascript/myBlocks.js"></script>
     <script>
         var workspace = Blockly.inject('blocklyDiv', {
@@ -51,50 +53,6 @@
                 pinch: true
             }
         });
-
-        function showCode() {
-            // Generate JavaScript code and display it.
-            Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
-            var code = Blockly.JavaScript.workspaceToCode(workspace);
-            /*if(cmds){
-                do{
-                    Blocky.JavaScript.blockToCode(cmds);
-                    console.log(Blocky.JavaScript.blockToCode(cmds));
-                }while(cmds = cmds.getNextBlock());
-            }*/
-            alert(code);
-        }
-        const url = "https://jsonplaceholder.typicode.com/posts/";
-        const data = {
-            name: "Said",
-            id: 23
-        }
-        $('.codeBtn').click(function() {
-                $.post(url, data, function(data, status) {
-                    console.log(`${data} and status is ${status}`);
-                });
-            })
-            /*function runCode() {
-                // Generate JavaScript code and run it.
-                window.LoopTrap = 1000;
-                Blockly.JavaScript.INFINITE_LOOP_TRAP =
-                    'if (--window.LoopTrap == 0) throw "Infinite loop.";\n';
-                var code = Blockly.JavaScript.workspaceToCode(workspace);
-                Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
-                try {
-                    eval(code);
-                } catch (e) {
-                    alert(e);
-                }
-                const url = "https://jsonplaceholder.typicode.com/posts/";
-                const data = {
-                    name: "Basim",
-                    id: 85
-                }
-                $.post(url, data, function(data, status) {
-                    console.log(`${data} and status is ${status}`);
-                });
-            }*/
     </script>
 </body>
 
