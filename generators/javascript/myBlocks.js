@@ -40,3 +40,9 @@ Blockly.JavaScript['backward'] = function(block) {
     var code = 'backward';
     return code;
 };
+Blockly.JavaScript['input'] = function(block) {
+    var statements_commands = Blockly.JavaScript.statementToCode(block, 'commands');
+    // TODO: Assemble JavaScript into code variable.
+    var code = statements_commands;
+    return code;
+};

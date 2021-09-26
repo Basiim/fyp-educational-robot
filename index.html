@@ -18,7 +18,9 @@
         <!-- BLOCKLY WORKSPACE -->
         <div id="blocklyDiv" style="height: 480px; width: 700px;"></div>
         <xml id="toolbox" style="display: none">
-            <block type="mini_game"></block>
+            <block type="input"></block>
+            <block type="forward"></block>
+            <block type="backward"></block>
         </xml>
     </div>
     <button class="codeBtn">Run Code</button>
@@ -54,6 +56,12 @@
             // Generate JavaScript code and display it.
             Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
             var code = Blockly.JavaScript.workspaceToCode(workspace);
+            /*if(cmds){
+                do{
+                    Blocky.JavaScript.blockToCode(cmds);
+                    console.log(Blocky.JavaScript.blockToCode(cmds));
+                }while(cmds = cmds.getNextBlock());
+            }*/
             alert(code);
         }
         const url = "https://jsonplaceholder.typicode.com/posts/";
