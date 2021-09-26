@@ -27,4 +27,16 @@ function rgbToHex(col) {
         var colHex = '#' + r + g + b;
         return colHex;
     }
-}
+};
+Blockly.JavaScript['forward'] = function(block) {
+    var value_direction = Blockly.JavaScript.valueToCode(block, 'direction', Blockly.JavaScript.ORDER_ATOMIC);
+    // TODO: Assemble JavaScript into code variable.
+    var code = 'forward';
+    return code;
+};
+Blockly.JavaScript['backward'] = function(block) {
+    var value_direction = Blockly.JavaScript.valueToCode(block, 'direction', Blockly.JavaScript.ORDER_ATOMIC);
+    // TODO: Assemble JavaScript into code variable.
+    var code = 'backward';
+    return code;
+};

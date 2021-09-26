@@ -43,3 +43,23 @@ Blockly.Blocks['mini_game'] = {
         this.setHelpUrl("");
     }
 };
+Blockly.Blocks['forward'] = {
+    init: function() {
+      this.appendValueInput("direction")
+          .setCheck("String")
+          .appendField("forward");
+      this.setColour(195);
+   this.setTooltip("");
+   this.setHelpUrl("");
+    }
+};
+Blockly.Blocks['backward'] = {
+    init: function() {
+      this.appendValueInput("direction")
+          .setCheck("String")
+          .appendField("backward");
+      this.setColour(195);
+   this.setTooltip("");
+   this.setHelpUrl("");
+    }
+};
