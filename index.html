@@ -13,10 +13,13 @@
 <body>
     <div class="header">
         <h1>FYP Progress</h1>
+        <input type="text" placeholder="IP address" id="ipAdd">
+        <button type="button" onclick="saveIP();">Save</button>
+        <p>sending data to: <span id="curIP">0.0.0.0</span></p>
     </div>
     <div class="main">
         <!-- BLOCKLY WORKSPACE -->
-        <div id="blocklyDiv" style="height: 70vh; width: 100vw;"></div>
+        <div id="blocklyDiv" style="height: 50vh; width: 100vw;"></div>
         <xml id="toolbox" style="display: none">
             <category name="MOVEMENT" colour="30">
                 <block type="forward"></block>
@@ -41,7 +44,7 @@
     <span id="cmds"></span>
     <button onclick="runCode()">Run Code</button>
     <button onclick="showCode()">Show Code</button>
-    <div class="copy">Made By Basim and Talha using Blockly</div>
+    <!--<div class="copy">Made By Basim and Talha using Blockly</div>-->
     <script src="https://unpkg.com/blockly/blockly.min.js"></script>
     <script src="assets/js/index.js"></script>
     <script src="blocks/myBlocks.js"></script>
@@ -67,6 +70,7 @@
                 pinch: true
             }
         });
+        document.getElementById('curIP').innerHTML = ip;
     </script>
 </body>
 
