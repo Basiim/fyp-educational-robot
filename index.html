@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/toolbox_style.css">
     <title>FYP</title>
 </head>
 
@@ -13,18 +14,31 @@
     <div class="header">
         <h1>FYP Progress</h1>
     </div>
-    <p>Mini Game: In this game you must match the colors of three circles to their corresponding blocks inside the workspace</p>
     <div class="main">
         <!-- BLOCKLY WORKSPACE -->
-        <div id="blocklyDiv" style="height: 480px; width: 700px;"></div>
+        <div id="blocklyDiv" style="height: 70vh; width: 100vw;"></div>
         <xml id="toolbox" style="display: none">
-            <block type="input"></block>
-            <block type="forward"></block>
-            <block type="backward"></block>
-            <block type="delay"></block>
-            <block type="math_number"></block>
+            <category name="MOVEMENT" colour="30">
+                <block type="forward"></block>
+                <block type="backward"></block>
+                <block type="left"></block>
+                <block type="right"></block>
+                <block type="stop"></block>
+            </category>
+            <category name="LOOPS" colour="60"></category>
+            <category name="MATH/LOGIC" colour="90">
+                <block type="math_number"></block>
+                <block type="logic_boolean"></block>
+            </category>
+            <category name="VARIABLES" colour="120"></category>
+            <category name="FUNCTIONS" colour="150"></category>
+            <category name="MISC" colour="180">
+                <block type="input"></block>
+                <block type="delay"></block>
+            </category>
         </xml>
     </div>
+    <span id="cmds"></span>
     <button onclick="runCode()">Run Code</button>
     <button onclick="showCode()">Show Code</button>
     <div class="copy">Made By Basim and Talha using Blockly</div>
@@ -38,7 +52,7 @@
             toolbox: document.getElementById('toolbox'),
             grid: {
                 spacing: 20,
-                length: 3,
+                length: 4,
                 colour: '#ccc',
                 snap: true
             },

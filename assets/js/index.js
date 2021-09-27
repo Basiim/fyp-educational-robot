@@ -3,20 +3,9 @@ function showCode() {
     Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
     var code = Blockly.JavaScript.workspaceToCode(workspace);
     var codeJSON = JSON.parse(code);
-    alert(codeJSON.commands);
-    let len = codeJSON.commands.length;
-    for (var i = 0; i < len - 1; i++) {
-        switch (codeJSON.commands[i]) {
-            case "forward":
-                console.log("forward true");
-                break;
-            case "backward":
-                console.log("backward true");
-                break;
-            default:
-                console.log("Error");
-        }
-    }
+    var index = codeJSON.commands.indexOf("end");
+    codeJSON.commands.splice(index, 1);
+    document.getElementById('cmds').innerHTML = codeJSON.commands;
 }
 
 function runCode() {
@@ -44,7 +33,7 @@ function runCode() {
 }
 
 function sendReq(url) {
-    fetch(url)
+    fetch(url, { mode: 'no-cors' })
         .then(data => {
             return data.json()
         })
