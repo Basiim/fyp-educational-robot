@@ -1,3 +1,10 @@
+var ip;
+
+function saveIP() {
+    ip = document.getElementById('ipAdd').value;
+    document.getElementById('curIP').innerHTML = ip;
+}
+
 function showCode() {
     // Generate JavaScript code and display it.
     Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
@@ -14,16 +21,17 @@ function runCode() {
     var code = Blockly.JavaScript.workspaceToCode(workspace);
     var codeJSON = JSON.parse(code);
     let len = codeJSON.commands.length;
-    var url;
+    console.log(ip);
+    var url = "http://" + ip;
     /***** TODO: add request *****/
     for (var i = 0; i < len - 1; i++) {
         switch (codeJSON.commands[i]) {
             case "forward":
-                url = "http://192.168.1.3/23/off"
+                url = url + "/23/off";
                 sendReq(url);
                 break;
             case "backward":
-                url = "http://192.168.1.3/23/on"
+                url = url + "/23/on";
                 sendReq(url);
                 break;
             default:
