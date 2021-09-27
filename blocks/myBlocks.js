@@ -3,9 +3,11 @@ Blockly.Blocks['delay'] = {
         this.appendValueInput("delay")
             .setCheck("Number")
             .appendField("delay");
+        this.appendDummyInput()
+            .appendField("seconds");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(230);
+        this.setColour(90);
         this.setTooltip("");
         this.setHelpUrl("");
     }
@@ -16,7 +18,18 @@ Blockly.Blocks['forward'] = {
             .appendField("Forward");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(60);
+        this.setColour(30);
+        this.setTooltip("");
+        this.setHelpUrl("");
+    }
+};
+Blockly.Blocks['stop'] = {
+    init: function() {
+        this.appendDummyInput()
+            .appendField("stop");
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, null);
+        this.setColour(30);
         this.setTooltip("");
         this.setHelpUrl("");
     }
@@ -27,7 +40,29 @@ Blockly.Blocks['backward'] = {
             .appendField("backward");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(60);
+        this.setColour(30);
+        this.setTooltip("");
+        this.setHelpUrl("");
+    }
+};
+Blockly.Blocks['left'] = {
+    init: function() {
+        this.appendDummyInput()
+            .appendField("left");
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, null);
+        this.setColour(30);
+        this.setTooltip("");
+        this.setHelpUrl("");
+    }
+};
+Blockly.Blocks['right'] = {
+    init: function() {
+        this.appendDummyInput()
+            .appendField("right");
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, null);
+        this.setColour(30);
         this.setTooltip("");
         this.setHelpUrl("");
     }
@@ -38,7 +73,7 @@ Blockly.Blocks['input'] = {
             .appendField("main");
         this.appendStatementInput("commands")
             .setCheck("String");
-        this.setColour(60);
+        this.setColour(90);
         this.setTooltip("");
         this.setHelpUrl("");
     }
