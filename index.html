@@ -40,8 +40,12 @@
                 <block type="delay"></block>
             </category>
         </xml>
+        <!-- Default block -->
+        <xml id="main" style="display: none">
+            <block type="input"></block>
+        </xml>
     </div>
-    <span id="cmds"></span>
+    <span id="cmds"></span><br>
     <button onclick="runCode()">Run Code</button>
     <button onclick="showCode()">Show Code</button>
     <!--<div class="copy">Made By Basim and Talha using Blockly</div>-->
@@ -70,6 +74,7 @@
                 pinch: true
             }
         });
+        Blockly.Xml.domToWorkspace(document.getElementById('main'), workspace); // by default main block is displayed
         document.getElementById('curIP').innerHTML = ip;
     </script>
 </body>
