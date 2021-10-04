@@ -78,3 +78,55 @@ Blockly.Blocks['input'] = {
         this.setHelpUrl("");
     }
 };
+Blockly.Blocks['repeat'] = {
+    init: function() {
+      this.appendValueInput("repeat")
+          .setCheck("Number")
+          .appendField(new Blockly.FieldLabelSerializable("repeat"), "repeat");
+      this.appendStatementInput("NAME")
+          .setCheck(null);
+      this.setPreviousStatement(true, null);
+      this.setNextStatement(true, null);
+      this.setColour(60);
+   this.setTooltip("");
+   this.setHelpUrl("");
+    }
+  };
+  Blockly.Blocks['for'] = {
+    init: function() {
+      this.appendValueInput("for")
+          .setCheck("Number")
+          .setAlign(Blockly.ALIGN_CENTRE)
+          .appendField(new Blockly.FieldLabelSerializable("for var i ="), "for");
+      this.appendValueInput("condition")
+          .setCheck(null)
+          .appendField("i ")
+          .appendField(new Blockly.FieldDropdown([[">","greater"], ["<","less"]]), "condition");
+      this.appendDummyInput()
+          .appendField("i")
+          .appendField(new Blockly.FieldDropdown([["++","plusplus"], ["--","minusminus"]]), "increment");
+      this.appendStatementInput("statements")
+          .setCheck(null);
+      this.setInputsInline(true);
+      this.setPreviousStatement(true, null);
+      this.setNextStatement(true, null);
+      this.setColour(60);
+   this.setTooltip("");
+   this.setHelpUrl("");
+    }
+  };
+  Blockly.Blocks['while'] = {
+    init: function() {
+      this.appendDummyInput()
+          .appendField("while var")
+          .appendField(new Blockly.FieldDropdown([["==","equal"], ["!=","not equal"], [">=","greater equal"],["<=","less equal"]]), "NAME");
+      this.appendValueInput("number")
+          .setCheck("Number");
+      this.setInputsInline(true);
+      this.setPreviousStatement(true, null);
+      this.setNextStatement(true, null);
+      this.setColour(230);
+   this.setTooltip("");
+   this.setHelpUrl("");
+    }
+  };
