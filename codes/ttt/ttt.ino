@@ -1,6 +1,6 @@
 #include <WiFi.h>
   
-  const char* ssid = "";
+  const char* ssid = "oppo";
   const char* password = ""; 
   
   WiFiServer server(80);
