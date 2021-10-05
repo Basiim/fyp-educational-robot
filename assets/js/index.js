@@ -21,7 +21,7 @@ function runCode() {
     let len = codeJSON.commands.length;
     console.log(ip);
     var url = "http://" + ip;
-    for (var i = 0; i < len - 1; i++) {
+    for (var i = 0; i < len; i++) {
         switch (codeJSON.commands[i]) {
             case "forward":
                 url = url + "/forward";
@@ -45,7 +45,8 @@ function runCode() {
                 break;
             default: // Delay to fix later
                 {
-                    url = url + `/${codeJSON.commands[i]}`;
+                    url = url + '/delay' + +`-${codeJSON.commands[i]}` + "-";
+                    //url = url + `/${codeJSON.commands[i]}`;
                     sendReq(url);
                 }
         }
