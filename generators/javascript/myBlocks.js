@@ -31,7 +31,7 @@ Blockly.JavaScript['delay'] = function(block) {
 };
 Blockly.JavaScript['input'] = function(block) {
     var statements_commands = Blockly.JavaScript.statementToCode(block, 'commands');
-    var code = '{\n"commands":[' + statements_commands + '"end"]' + '\n' + "}";
+    var code = '{\n"commands":[' + statements_commands + '"!"]' + '\n' + "}";
     return code;
 };
 Blockly.JavaScript['repeat'] = function(block) {
