@@ -19,7 +19,6 @@ function runCode() {
     var code = Blockly.JavaScript.workspaceToCode(workspace);
     var codeJSON = JSON.parse(code);
     let len = codeJSON.commands.length;
-    console.log(ip);
     var url = "http://" + ip;
     for (var i = 0; i < len; i++) {
         switch (codeJSON.commands[i]) {
@@ -39,17 +38,21 @@ function runCode() {
                 url = url + "/right";
                 sendReq(url);
                 break;
+            case "!":
+                url = url + "/final";
+                sendReq(url);
+                break;
             case "stop":
                 url = url + "/stop";
                 sendReq(url);
                 break;
             default: // Delay to fix later
                 {
-                    url = url + '/delay' + +`-${codeJSON.commands[i]}` + "-";
-                    //url = url + `/${codeJSON.commands[i]}`;
+                    url = url + '/delay' + `-${codeJSON.commands[i]}` + "-";
                     sendReq(url);
                 }
         }
+        url = "http://" + ip;
     }
 }
 
