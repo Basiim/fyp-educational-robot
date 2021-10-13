@@ -90,16 +90,14 @@ Blockly.Blocks['for'] = {
         this.appendValueInput("condition")
             .setCheck(null)
             .appendField("i ")
-            .appendField(new Blockly.FieldDropdown([ /*[">","greater"],*/
+            .appendField(new Blockly.FieldDropdown([ [">","greater"],
                 ["<", "less"]
             ]), "condition");
         this.appendDummyInput()
             .appendField("i")
-            .appendField(new Blockly.FieldDropdown([
-                ["++", "plusplus"]
-                /*,
-                                ["--", "minusminus"]*/
-            ]), "increment");
+            .appendField(new Blockly.FieldDropdown([ ["++", "plusplus"]
+                ,["--", "minusminus"]
+            ]),"increment");
         this.appendStatementInput("statements")
             .setCheck(null);
         this.setInputsInline(true);

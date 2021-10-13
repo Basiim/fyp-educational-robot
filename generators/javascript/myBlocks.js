@@ -47,11 +47,11 @@ Blockly.JavaScript['for'] = function(block) {
             statements_loops = statements_loops + statements_statements;
         }
     }
-    /*if (dropdown_condition == "greater" && dropdown_increment == "minusminus") {
-        for (var i = value_for; i > value_condition; i--) {
+    if (dropdown_condition == "greater" && dropdown_increment == "minusminus") {
+        for (var i = value_for; i > value_condition + 1 ; i--) {
             statements_loops = statements_loops + statements_statements;
         }
-    }*/
+    }
     var code = `${statements_loops}`;
     return code;
 };
