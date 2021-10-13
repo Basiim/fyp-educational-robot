@@ -7,12 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/assets/css/style.css">
     <link rel="stylesheet" href="/assets/css/toolbox_style.css">
-    <title>FYP</title>
+    <title>BlocklyBot</title>
 </head>
 
 <body>
     <div class="header">
-        <h1>FYP Progress</h1>
+        <h1>Educational Bot</h1>
         <input type="text" placeholder="IP address" id="ipAdd">
         <button type="button" onclick="saveIP();">Save</button>
         <p>sending data to: <span id="curIP">0.0.0.0</span></p>
@@ -54,8 +54,8 @@
     <span id="cmds"></span><br>
     <button onclick="runCode()">Run Code</button>
     <button onclick="showCode()">Show Code</button>
-    <!--<div class="copy">Made By Basim and Talha using Blockly</div>-->
-    <script src="https://unpkg.com/blockly/blockly.min.js"></script>
+
+    <script src="node_modules/blockly/blockly.min.js"></script>
     <script src="assets/js/index.js"></script>
     <script src="blocks/myBlocks.js"></script>
     <script src="assets/js/custom_cat.js"></script>
