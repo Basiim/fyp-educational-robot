@@ -1,4 +1,4 @@
-var ip;
+var ip = "0.0.0.0";
 
 function saveIP() {
     ip = document.getElementById('ipAdd').value;
