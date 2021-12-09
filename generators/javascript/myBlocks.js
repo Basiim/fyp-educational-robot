@@ -20,6 +20,21 @@ Blockly.JavaScript['left'] = function(block) {
 Blockly.JavaScript['right'] = function(block) {
     return '"right",';
 };
+Blockly.JavaScript['direction'] = function(block) {
+    var angle_angle = block.getFieldValue('angle');
+    var code = `"/angle-${angle_angle}-",`;
+    return code;
+};
+Blockly.JavaScript['speed'] = function(block) {
+    var value_speed = Blockly.JavaScript.valueToCode(block, 'speed', Blockly.JavaScript.ORDER_ATOMIC);
+    if(value_speed > 100)
+    {
+        alert('Please Enter speed between 0 to 100');
+        return'';
+    }
+    var code = `"/speed-${value_speed}-",`;
+    return code;
+};
 /********** LOOPS **********/
 Blockly.JavaScript['repeat'] = function(block) {
     var value_repeat = Blockly.JavaScript.valueToCode(block, 'repeat', Blockly.JavaScript.ORDER_ATOMIC);

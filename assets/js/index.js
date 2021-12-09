@@ -8,10 +8,12 @@ function saveIP() {
 function showCode() {
     Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
     var code = Blockly.JavaScript.workspaceToCode(workspace);
+    console.log(code);
     var codeJSON = JSON.parse(code);
     var index = codeJSON.commands.indexOf("end");
     codeJSON.commands.splice(index, 1);
     document.getElementById('cmds').innerHTML = codeJSON.commands;
+    console.log(codeJSON.commands);
 }
 
 function runCode() {
@@ -46,16 +48,23 @@ function runCode() {
                 url = url + "/stop";
                 sendReq(url);
                 break;
-            default: // Delay to fix later
+            default: 
                 {
-                    url = url + '/delay' + `-${codeJSON.commands[i]}` + "-";
+                    if(codeJSON.commands[i].includes("/angle")){
+                        url = url + codeJSON.commands[i];
+                    }
+                    else if(codeJSON.commands[i].includes("/speed")){
+                        url = url + codeJSON.commands[i];
+                    }
+                    else{
+                        url = url + '/delay' + `-${codeJSON.commands[i]}` + "-";
+                    }
                     sendReq(url);
                 }
         }
         url = "http://" + ip;
     }
 }
-
 function sendReq(url) {
     fetch(url, { mode: 'no-cors' })
         .then(data => {
