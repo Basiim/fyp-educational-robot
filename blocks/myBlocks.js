@@ -66,6 +66,32 @@ Blockly.Blocks['right'] = {
         this.setHelpUrl("");
     }
 };
+Blockly.Blocks['direction'] = {
+    init: function() {
+      this.appendDummyInput()
+          .appendField("Direction")
+          .appendField(new Blockly.FieldAngle(90), "angle");
+      this.setPreviousStatement(true, null);
+      this.setNextStatement(true, null);
+      this.setColour(30);
+   this.setTooltip("");
+   this.setHelpUrl("");
+    }
+};
+Blockly.Blocks['speed'] = {
+    init: function() {
+      this.appendDummyInput()
+          .appendField("Speed");
+      this.appendValueInput("speed")
+          .setCheck("Number");
+      this.setInputsInline(true);
+      this.setPreviousStatement(true, null);
+      this.setNextStatement(true, null);
+      this.setColour(30);
+   this.setTooltip("");
+   this.setHelpUrl("");
+    }
+};
 /********** LOOPS **********/
 Blockly.Blocks['repeat'] = {
     init: function() {

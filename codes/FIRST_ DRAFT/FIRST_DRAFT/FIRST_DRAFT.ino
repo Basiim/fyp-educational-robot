@@ -1,7 +1,7 @@
  #include <WiFi.h>
   
-  const char* ssid = "Redmi";
-  const char* password = "123456789"; 
+  const char* ssid = "tAlHa SaJJaD";
+  const char* password = "talha081"; 
   
   WiFiServer server(80);
 
