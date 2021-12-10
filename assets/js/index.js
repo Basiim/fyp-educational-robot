@@ -8,12 +8,10 @@ function saveIP() {
 function showCode() {
     Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
     var code = Blockly.JavaScript.workspaceToCode(workspace);
-    console.log(code);
     var codeJSON = JSON.parse(code);
     var index = codeJSON.commands.indexOf("end");
     codeJSON.commands.splice(index, 1);
     document.getElementById('cmds').innerHTML = codeJSON.commands;
-    console.log(codeJSON.commands);
 }
 
 function runCode() {
@@ -32,14 +30,6 @@ function runCode() {
                 url = url + "/backward";
                 sendReq(url);
                 break;
-            case "left":
-                url = url + "/left";
-                sendReq(url);
-                break;
-            case "right":
-                url = url + "/right";
-                sendReq(url);
-                break;
             case "!":
                 url = url + "/final";
                 sendReq(url);
@@ -48,15 +38,13 @@ function runCode() {
                 url = url + "/stop";
                 sendReq(url);
                 break;
-            default: 
+            default:
                 {
-                    if(codeJSON.commands[i].includes("/angle")){
+                    if (codeJSON.commands[i].includes("/angle")) {
                         url = url + codeJSON.commands[i];
-                    }
-                    else if(codeJSON.commands[i].includes("/speed")){
+                    } else if (codeJSON.commands[i].includes("/speed")) {
                         url = url + codeJSON.commands[i];
-                    }
-                    else{
+                    } else {
                         url = url + '/delay' + `-${codeJSON.commands[i]}` + "-";
                     }
                     sendReq(url);
@@ -65,6 +53,7 @@ function runCode() {
         url = "http://" + ip;
     }
 }
+
 function sendReq(url) {
     fetch(url, { mode: 'no-cors' })
         .then(data => {

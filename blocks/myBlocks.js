@@ -5,7 +5,7 @@ Blockly.Blocks['input'] = {
             .appendField("main");
         this.appendStatementInput("commands")
             .setCheck("String");
-        this.setColour(90);
+        this.setColour("#00d080");
         this.setTooltip("");
         this.setHelpUrl("");
     }
@@ -17,7 +17,7 @@ Blockly.Blocks['forward'] = {
             .appendField("Forward");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(30);
+        this.setColour("#07b7a6");
         this.setTooltip("");
         this.setHelpUrl("");
     }
@@ -28,7 +28,7 @@ Blockly.Blocks['stop'] = {
             .appendField("stop");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(30);
+        this.setColour("#07b7a6");
         this.setTooltip("");
         this.setHelpUrl("");
     }
@@ -39,57 +39,35 @@ Blockly.Blocks['backward'] = {
             .appendField("backward");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(30);
-        this.setTooltip("");
-        this.setHelpUrl("");
-    }
-};
-Blockly.Blocks['left'] = {
-    init: function() {
-        this.appendDummyInput()
-            .appendField("left");
-        this.setPreviousStatement(true, null);
-        this.setNextStatement(true, null);
-        this.setColour(30);
-        this.setTooltip("");
-        this.setHelpUrl("");
-    }
-};
-Blockly.Blocks['right'] = {
-    init: function() {
-        this.appendDummyInput()
-            .appendField("right");
-        this.setPreviousStatement(true, null);
-        this.setNextStatement(true, null);
-        this.setColour(30);
+        this.setColour("#07b7a6");
         this.setTooltip("");
         this.setHelpUrl("");
     }
 };
 Blockly.Blocks['direction'] = {
     init: function() {
-      this.appendDummyInput()
-          .appendField("Direction")
-          .appendField(new Blockly.FieldAngle(90), "angle");
-      this.setPreviousStatement(true, null);
-      this.setNextStatement(true, null);
-      this.setColour(30);
-   this.setTooltip("");
-   this.setHelpUrl("");
+        this.appendDummyInput()
+            .appendField("Direction")
+            .appendField(new Blockly.FieldAngle(90), "angle");
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, null);
+        this.setColour("#07b7a6");
+        this.setTooltip("");
+        this.setHelpUrl("");
     }
 };
 Blockly.Blocks['speed'] = {
     init: function() {
-      this.appendDummyInput()
-          .appendField("Speed");
-      this.appendValueInput("speed")
-          .setCheck("Number");
-      this.setInputsInline(true);
-      this.setPreviousStatement(true, null);
-      this.setNextStatement(true, null);
-      this.setColour(30);
-   this.setTooltip("");
-   this.setHelpUrl("");
+        this.appendDummyInput()
+            .appendField("Speed");
+        this.appendValueInput("speed")
+            .setCheck("Number");
+        this.setInputsInline(true);
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, null);
+        this.setColour("#07b7a6");
+        this.setTooltip("");
+        this.setHelpUrl("");
     }
 };
 /********** LOOPS **********/
@@ -102,7 +80,7 @@ Blockly.Blocks['repeat'] = {
             .setCheck(null);
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(60);
+        this.setColour("#fc832e");
         this.setTooltip("");
         this.setHelpUrl("");
     }
@@ -116,20 +94,22 @@ Blockly.Blocks['for'] = {
         this.appendValueInput("condition")
             .setCheck(null)
             .appendField("i ")
-            .appendField(new Blockly.FieldDropdown([ [">","greater"],
+            .appendField(new Blockly.FieldDropdown([
+                [">", "greater"],
                 ["<", "less"]
             ]), "condition");
         this.appendDummyInput()
             .appendField("i")
-            .appendField(new Blockly.FieldDropdown([ ["++", "plusplus"]
-                ,["--", "minusminus"]
-            ]),"increment");
+            .appendField(new Blockly.FieldDropdown([
+                ["++", "plusplus"],
+                ["--", "minusminus"]
+            ]), "increment");
         this.appendStatementInput("statements")
             .setCheck(null);
         this.setInputsInline(true);
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(60);
+        this.setColour("#fc832e");
         this.setTooltip("");
         this.setHelpUrl("");
     }
@@ -149,7 +129,36 @@ Blockly.Blocks['while'] = {
         this.setInputsInline(true);
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(230);
+        this.setColour("#fc832e");
+        this.setTooltip("");
+        this.setHelpUrl("");
+    }
+};
+/******* CONDITIONS *******/
+Blockly.Blocks['ifelse'] = {
+    init: function() {
+        this.appendDummyInput()
+            .appendField("if");
+        this.appendValueInput("ifval1")
+            .setCheck(null);
+        this.appendDummyInput()
+            .appendField(new Blockly.FieldDropdown([
+                ["==", "equal"],
+                [">", "greater"],
+                ["<", "less"]
+            ]), "ifcond");
+        this.appendValueInput("ifval2")
+            .setCheck(null);
+        this.appendStatementInput("if")
+            .setCheck(null);
+        this.appendDummyInput()
+            .appendField("else");
+        this.appendStatementInput("else")
+            .setCheck(null);
+        this.setInputsInline(true);
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, null);
+        this.setColour("#edc620");
         this.setTooltip("");
         this.setHelpUrl("");
     }
@@ -164,7 +173,7 @@ Blockly.Blocks['delay'] = {
             .appendField("seconds");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(90);
+        this.setColour("#fe96aa");
         this.setTooltip("");
         this.setHelpUrl("");
     }
