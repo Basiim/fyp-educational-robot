@@ -14,12 +14,6 @@ Blockly.JavaScript['stop'] = function(block) {
 Blockly.JavaScript['backward'] = function(block) {
     return '"backward",';
 };
-Blockly.JavaScript['left'] = function(block) {
-    return '"left",';
-};
-Blockly.JavaScript['right'] = function(block) {
-    return '"right",';
-};
 Blockly.JavaScript['direction'] = function(block) {
     var angle_angle = block.getFieldValue('angle');
     var code = `"/angle-${angle_angle}-",`;
@@ -27,10 +21,9 @@ Blockly.JavaScript['direction'] = function(block) {
 };
 Blockly.JavaScript['speed'] = function(block) {
     var value_speed = Blockly.JavaScript.valueToCode(block, 'speed', Blockly.JavaScript.ORDER_ATOMIC);
-    if(value_speed > 100)
-    {
+    if (value_speed > 100) {
         alert('Please Enter speed between 0 to 100');
-        return'';
+        return '';
     }
     var code = `"/speed-${value_speed}-",`;
     return code;
@@ -63,7 +56,7 @@ Blockly.JavaScript['for'] = function(block) {
         }
     }
     if (dropdown_condition == "greater" && dropdown_increment == "minusminus") {
-        for (var i = value_for; i > value_condition + 1 ; i--) {
+        for (var i = value_for; i > value_condition + 1; i--) {
             statements_loops = statements_loops + statements_statements;
         }
     }
@@ -75,6 +68,27 @@ Blockly.JavaScript['while'] = function(block) {
     var value_number = Blockly.JavaScript.valueToCode(block, 'number', Blockly.JavaScript.ORDER_ATOMIC);
     var code = '...;\n';
     return code;
+};
+/******* CONDITIONS *******/
+Blockly.JavaScript['ifelse'] = function(block) {
+    var value_ifval1 = Blockly.JavaScript.valueToCode(block, 'ifval1', Blockly.JavaScript.ORDER_ATOMIC);
+    var dropdown_ifcond = block.getFieldValue('ifcond');
+    var value_ifval2 = Blockly.JavaScript.valueToCode(block, 'ifval2', Blockly.JavaScript.ORDER_ATOMIC);
+    var statements_if = Blockly.JavaScript.statementToCode(block, 'if');
+    var statements_else = Blockly.JavaScript.statementToCode(block, 'else');
+    if (dropdown_ifcond == 'equal')
+        if (value_ifval1 == value_ifval2)
+            return statements_if;
+        else return statements_else;
+    else if (dropdown_ifcond == 'greater')
+        if (value_ifval1 > value_ifval2)
+            return statements_if;
+        else return statements_else;
+    else {
+        if (value_ifval1 < value_ifval2)
+            return statements_if;
+        else return statements_else;
+    }
 };
 /********** MISC **********/
 Blockly.JavaScript['delay'] = function(block) {

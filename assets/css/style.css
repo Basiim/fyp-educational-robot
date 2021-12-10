@@ -1,8 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Prompt&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Butterfly+Kids&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
 body {
     background-color: whitesmoke;
     font-family: prompt, sans-serif;
-    margin: 3rem 3rem 0 3rem;
+    /*margin: 3rem 3rem 0 3rem;*/
 }
 
 .main {
@@ -18,14 +20,6 @@ body {
     align-items: center;
 }
 
-.blocklyTreeLabel {
-    font: 18px sans-serif;
-}
-
-.blocklyTreeRow {
-    margin-top: 10px;
-}
-
 button {
     background-color: #008CBA;
     /* Green */
@@ -38,6 +32,7 @@ button {
     font-size: 16px;
     margin: 4px 2px;
     cursor: pointer;
+    border-radius: 12px;
 }
 
 input {
