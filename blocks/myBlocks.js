@@ -163,6 +163,30 @@ Blockly.Blocks['ifelse'] = {
         this.setHelpUrl("");
     }
 };
+Blockly.Blocks['if'] = {
+    init: function() {
+        this.appendDummyInput()
+            .appendField("if");
+        this.appendValueInput("ifval1")
+            .setCheck(null);
+        this.appendDummyInput()
+            .appendField(new Blockly.FieldDropdown([
+                ["==", "equal"],
+                [">", "greater"],
+                ["<", "less"]
+            ]), "ifcond");
+        this.appendValueInput("ifval2")
+            .setCheck(null);
+        this.appendStatementInput("if")
+            .setCheck(null);
+        this.setInputsInline(true);
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, null);
+        this.setColour("#edc620");
+        this.setTooltip("");
+        this.setHelpUrl("");
+    }
+};
 /********** MISC **********/
 Blockly.Blocks['delay'] = {
     init: function() {

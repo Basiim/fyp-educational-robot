@@ -90,6 +90,28 @@ Blockly.JavaScript['ifelse'] = function(block) {
         else return statements_else;
     }
 };
+Blockly.JavaScript['if'] = function(block) {
+    var value_ifval1 = Blockly.JavaScript.valueToCode(block, 'ifval1', Blockly.JavaScript.ORDER_ATOMIC);
+    var dropdown_ifcond = block.getFieldValue('ifcond');
+    var value_ifval2 = Blockly.JavaScript.valueToCode(block, 'ifval2', Blockly.JavaScript.ORDER_ATOMIC);
+    var statements_if = Blockly.JavaScript.statementToCode(block, 'if');
+    if (dropdown_ifcond == 'equal') {
+        if (value_ifval1 == value_ifval2)
+            return statements_if;
+        else
+            return "";
+    } else if (dropdown_ifcond == 'greater') {
+        if (value_ifval1 > value_ifval2)
+            return statements_if;
+        else
+            return "";
+    } else {
+        if (value_ifval1 < value_ifval2)
+            return statements_if;
+        else
+            return "";
+    }
+};
 /********** MISC **********/
 Blockly.JavaScript['delay'] = function(block) {
     var value_name = Blockly.JavaScript.valueToCode(block, 'delay', Blockly.JavaScript.ORDER_ATOMIC);

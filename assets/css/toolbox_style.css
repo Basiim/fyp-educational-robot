@@ -3,15 +3,17 @@
 }
 
 .blocklyTreeLabel {
-    font-family: 'Varela Round', sans-serif;
+    /*font-family: 'Varela Round', sans-serif;*/
+    font-family: 'Butterfly', cursive;
     font-weight: 500;
     font: 18px;
 }
 
-.geras-renderer.halloween-theme .blocklyText,
-.geras-renderer.halloween-theme .blocklyFlyoutLabelText {
-    font-family: 'Varela Round', sans-serif;
-    font-size: 15px;
+.zelos-renderer.halloween-theme .blocklyText,
+.zelos-renderer.halloween-theme .blocklyFlyoutLabelText {
+    /*font-family: 'Varela Round', sans-serif;*/
+    font-family: 'Butterfly', cursive;
+    font-size: 17px;
 }
 
 .blocklyTreeRow {
