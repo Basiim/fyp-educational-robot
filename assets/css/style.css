@@ -3,7 +3,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
 body {
     background-color: whitesmoke;
-    font-family: prompt, sans-serif;
+    /*font-family: prompt, sans-serif;*/
+    font-family: Butterfly, cursive;
     /*margin: 3rem 3rem 0 3rem;*/
 }
 
