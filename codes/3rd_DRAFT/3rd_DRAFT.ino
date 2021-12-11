@@ -41,7 +41,7 @@ const int motor2A = 16;
 const int motor2B = 4;
 const int motor4A = 0;
 const int motor4B = 2;
-String commands[20]; 
+String commands[50]; 
 int i=0;
 float _speed;
 String a1 = "0";

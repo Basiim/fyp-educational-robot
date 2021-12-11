@@ -46,3 +46,12 @@ input {
 button:hover {
     background-color: #008bbaa2;
 }
+
+
+/*.cmds {
+    background-color: #008CBA;
+    height: 200px;
+    width: 200px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}*/

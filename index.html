@@ -54,7 +54,7 @@
             <block type="input"></block>
         </xml>
     </div>
-    <span id="cmds"></span><br>
+    <div class="cmds" id="cmds"></div><br>
     <input type="text" placeholder="IP address" id="ipAdd">
     <button type="button" onclick="saveIP();">Save IP</button>
     <button onclick="runCode()"><i class="fa fa-play"></i>  Run Code</button>
@@ -63,10 +63,9 @@
     <script src="node_modules/blockly/blockly.min.js"></script>
     <script src="assets/js/index.js"></script>
     <script src="blocks/myBlocks.js"></script>
-    <script src="assets/js/custom_cat.js"></script>
     <script src="generators/javascript/myBlocks.js"></script>
     <script>
-        Blockly.Themes.Halloween = Blockly.Theme.defineTheme('halloween', {
+        Blockly.Themes.MyTheme = Blockly.Theme.defineTheme('MyTheme', {
             'base': Blockly.Themes.Classic,
             'componentStyles': {
                 'workspaceBackgroundColour': '#e6e6e6',
@@ -85,12 +84,6 @@
         });
         var workspace = Blockly.inject('blocklyDiv', {
             toolbox: document.getElementById('toolbox'),
-            /*grid: {
-                spacing: 20,
-                length: 4,
-                colour: '#ccc',
-                snap: true
-            },*/
             move: {
                 scrollbars: {
                     vertical: true,
@@ -98,7 +91,7 @@
                 }
             },
             trashcan: true,
-            theme: Blockly.Themes.Halloween,
+            theme: Blockly.Themes.MyTheme,
             renderer: 'zelos'
         });
         Blockly.Xml.domToWorkspace(document.getElementById('main'), workspace); // by default main block is displayed

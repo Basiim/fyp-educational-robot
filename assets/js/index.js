@@ -11,6 +11,14 @@ function showCode() {
     var codeJSON = JSON.parse(code);
     var index = codeJSON.commands.indexOf("end");
     codeJSON.commands.splice(index, 1);
+    console.log(codeJSON.commands);
+    let arrayLength = codeJSON.commands.length;
+    /*for (var i = 0; i < arrayLength; i++) {
+        var node = document.createElement("P");
+        var textnode = document.createTextNode(codeJSON.commands[i]);
+        node.appendChild(textnode);
+        document.getElementById("cmds").appendChild(node);
+    }*/
     document.getElementById('cmds').innerHTML = codeJSON.commands;
 }
 

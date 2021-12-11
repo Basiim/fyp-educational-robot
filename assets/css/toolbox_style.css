@@ -9,8 +9,8 @@
     font: 18px;
 }
 
-.zelos-renderer.halloween-theme .blocklyText,
-.zelos-renderer.halloween-theme .blocklyFlyoutLabelText {
+.zelos-renderer.MyTheme-theme .blocklyText,
+.zelos-renderer.MyTheme-theme .blocklyFlyoutLabelText {
     /*font-family: 'Varela Round', sans-serif;*/
     font-family: 'Butterfly', cursive;
     font-size: 17px;
