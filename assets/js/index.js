@@ -27,6 +27,7 @@ function runCode() {
     var code = Blockly.JavaScript.workspaceToCode(workspace);
     var codeJSON = JSON.parse(code);
     let len = codeJSON.commands.length;
+    console.log(codeJSON.commands);
     var url = "http://" + ip;
     for (var i = 0; i < len; i++) {
         switch (codeJSON.commands[i]) {
@@ -58,6 +59,10 @@ function runCode() {
                     sendReq(url);
                 }
         }
+        setTimeout(function(){
+            sendReq(url);
+        },500);
+        console.log(url);
         url = "http://" + ip;
     }
 }
