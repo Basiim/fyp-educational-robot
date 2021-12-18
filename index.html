@@ -59,12 +59,18 @@
     <button type="button" onclick="saveIP();">Save IP</button>
     <button onclick="runCode()"><i class="fa fa-play"></i>  Run Code</button>
     <button onclick="showCode()"><i class="fa fa-bars"></i>  Show Code</button>
+    <button onclick="saveCode()"><i class="fa fa-save"></i>  Save Code</button>
+    <input type="file" id="files" name="file" /> 
+    <button onclick="loadCode()">Load Code</button>
 
     <script src="node_modules/blockly/blockly.min.js"></script>
-    <script src="assets/js/index.js"></script>
-    <script src="blocks/myBlocks.js"></script>
-    <script src="generators/javascript/myBlocks.js"></script>
+    <script src="assets/js/buttonsBehaviour.js"></script>
+    <script src="assets/js/blocks.js"></script>
+    <script src="assets/js/generator.js"></script>
+    <script src="node_modules/file-saver/src/FileSaver.js"></script>
     <script>
+        var ip = "0.0.0.0";
+        document.getElementById('curIP').innerHTML = ip;
         Blockly.Themes.MyTheme = Blockly.Theme.defineTheme('MyTheme', {
             'base': Blockly.Themes.Classic,
             'componentStyles': {
@@ -95,7 +101,6 @@
             renderer: 'zelos'
         });
         Blockly.Xml.domToWorkspace(document.getElementById('main'), workspace); // by default main block is displayed
-        document.getElementById('curIP').innerHTML = ip;
     </script>
 </body>
 
