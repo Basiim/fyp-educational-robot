@@ -88,7 +88,7 @@ function loadCode(){
      * https://www.html5rocks.com/en/tutorials/file/dndfiles//
      *  
      ***/
-function readBlob(opt_startByte, opt_stopByte) {
+function readBlob() {
         var blockss;
         var files = document.getElementById('files').files;
         if (!files.length) {
@@ -96,8 +96,8 @@ function readBlob(opt_startByte, opt_stopByte) {
         return;
         }
         var file = files[0];
-        var start = parseInt(opt_startByte) || 0;
-        var stop = parseInt(opt_stopByte) || file.size - 1;
+        var start = 0;
+        var stop = file.size - 1;
         var reader = new FileReader();
         // If we use onloadend, we need to check the readyState.
         reader.onloadend = function(evt) {

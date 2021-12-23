@@ -21,7 +21,7 @@ body {
     align-items: center;
 }
 
-button {
+button,#files{
     background-color: #008CBA;
     /* Green */
     border: none;
@@ -35,7 +35,6 @@ button {
     cursor: pointer;
     border-radius: 12px;
 }
-
 input {
     padding: 12px 29px;
     text-align: center;
