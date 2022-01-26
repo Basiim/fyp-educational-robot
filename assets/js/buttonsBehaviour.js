@@ -23,7 +23,7 @@ function runCode() {
         var code = Blockly.JavaScript.workspaceToCode(workspace);
         var codeJSON = JSON.parse(code);
         let len = codeJSON.commands.length;
-        console.log(codeJSON.commands);
+        console.log(codeJSON);
         var url = "http://" + ip;
         for (var i = 0; i < len; i++) {
             switch (codeJSON.commands[i]) {
@@ -36,7 +36,11 @@ function runCode() {
                     sendReq(url);
                     break;
                 case "!":
-                    url = url + "/final";
+                    url = url + "/comStop";
+                    sendReq(url);
+                    break;
+                case "~":
+                    url = url + "/comStart";
                     sendReq(url);
                     break;
                 case "stop":
@@ -63,14 +67,9 @@ function runCode() {
         }
     }
 function sendReq(url) {
-        fetch(url, { mode: 'no-cors' })
-            .then(data => {
-                return data.json()
-            })
-            .then(res => {
-                console.log(res)
-            })
-    }
+        fetch(url, { method: 'GET', mode: 'no-cors' })
+
+}
 function saveCode(){
         var xmlCode  = Blockly.Xml.workspaceToDom(workspace);
         var xmlDoc = '<xml>' + xmlCode.innerHTML + "</xml>"

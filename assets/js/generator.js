@@ -1,7 +1,7 @@
 /********** MAIN **********/
 Blockly.JavaScript['input'] = function(block) {
     var statements_commands = Blockly.JavaScript.statementToCode(block, 'commands');
-    var code = '{\n"commands":[' + statements_commands + '"!"]' + '\n' + "}";
+    var code = '{\n"commands":["~",' + statements_commands + '"!"]' + '\n' + "}";
     return code;
 };
 /********** MOVEMENT **********/
