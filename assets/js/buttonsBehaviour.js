@@ -36,11 +36,7 @@ function runCode() {
                     sendReq(url);
                     break;
                 case "!":
-                    url = url + "/comStop";
-                    sendReq(url);
-                    break;
-                case "~":
-                    url = url + "/comStart";
+                    url = url + "/final";
                     sendReq(url);
                     break;
                 case "stop":
@@ -52,6 +48,10 @@ function runCode() {
                         if (codeJSON.commands[i].includes("/angle")) {
                             url = url + codeJSON.commands[i];
                         } else if (codeJSON.commands[i].includes("/speed")) {
+                            url = url + codeJSON.commands[i];}
+                        else if (codeJSON.commands[i].includes("/loop")) {
+                            url = url + codeJSON.commands[i];
+                        }else if (codeJSON.commands[i].includes("/endloop")) {
                             url = url + codeJSON.commands[i];
                         } else {
                             url = url + '/delay' + `-${codeJSON.commands[i]}` + "-";

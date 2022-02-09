@@ -1,7 +1,7 @@
 /********** MAIN **********/
 Blockly.JavaScript['input'] = function(block) {
     var statements_commands = Blockly.JavaScript.statementToCode(block, 'commands');
-    var code = '{\n"commands":["~",' + statements_commands + '"!"]' + '\n' + "}";
+    var code = '{\n"commands":[' + statements_commands + '"!"]' + '\n' + "}";
     return code;
 };
 /********** MOVEMENT **********/
@@ -32,7 +32,7 @@ Blockly.JavaScript['speed'] = function(block) {
 Blockly.JavaScript['repeat'] = function(block) {
     var value_repeat = Blockly.JavaScript.valueToCode(block, 'repeat', Blockly.JavaScript.ORDER_ATOMIC);
     var statements_name = Blockly.JavaScript.statementToCode(block, 'NAME');
-    var statements_loop = statements_name;
+    /*var statements_loop = statements_name;
     for (var i = 1; i < value_repeat; i++) {
         statements_loop = statements_loop + statements_name;
     }
@@ -40,8 +40,8 @@ Blockly.JavaScript['repeat'] = function(block) {
         alert('kindly start from 1');
         return '';
     }
-    var code = `${statements_loop}`;
-    return code;
+    var code = `${statements_loop}`;*/
+    return `"/loop-${value_repeat}-",` + `${statements_name}` + `"/endloop",`;
 }
 Blockly.JavaScript['for'] = function(block) {
     var value_for = Blockly.JavaScript.valueToCode(block, 'for', Blockly.JavaScript.ORDER_ATOMIC);
