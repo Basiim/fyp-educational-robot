@@ -39,6 +39,10 @@ function runCode() {
                     url = url + "/final";
                     sendReq(url);
                     break;
+                case "~":
+                    url = url + "/start";
+                    sendReq(url);
+                    break;
                 case "stop":
                     url = url + "/stop";
                     sendReq(url);
@@ -68,7 +72,6 @@ function runCode() {
     }
 function sendReq(url) {
         fetch(url, { method: 'GET', mode: 'no-cors' })
-
 }
 function saveCode(){
         var xmlCode  = Blockly.Xml.workspaceToDom(workspace);
