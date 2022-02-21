@@ -3,7 +3,7 @@
 #define LEN 5.5  
 #define WID 11
 #define RADIUS 4
-  const char* ssid = "oppo";
+  const char* ssid = "Humara robot";
   const char* password = "ameen123"; 
   
   WiFiServer server(80);
@@ -31,18 +31,12 @@ struct speed_of_wheels{
 String header;
 
 // Assign output variables to GPIO pins
-const int motor1A = 15;
-const int motor1B = 2;
-const int motor2A = 0;
-const int motor2B = 4;
-const int motor3A = 16;
-const int motor3B = 17;
-const int motor4A = 5;
-const int motor4B = 18;
-const int motor1PWM = 12;
-const int motor2PWM = 14;
-const int motor3PWM = 27;
-const int motor4PWM = 26;
+
+const int motor1A = 18;
+const int motor2A = 17;
+
+const int motor1PWM = 19;
+const int motor2PWM = 5;
 String commands[20]; 
 int i=0;
 float _speed;
@@ -53,30 +47,22 @@ void command_handler(int x);
 void setup() {
   Serial.begin(119200);
   // Initialize the output variables as outputs
-  pinMode(motor1A, OUTPUT); pinMode(motor1B, OUTPUT);
-  pinMode(motor2A, OUTPUT); pinMode(motor2B, OUTPUT);
-  pinMode(motor3A, OUTPUT); pinMode(motor3B, OUTPUT);
-  pinMode(motor4A, OUTPUT); pinMode(motor4B, OUTPUT);
+  pinMode(motor1A, OUTPUT);
+  pinMode(motor2A, OUTPUT);
   // Set outputs to LOW
-  digitalWrite(motor1A, LOW); digitalWrite(motor1B, LOW);
-  digitalWrite(motor2A, LOW); digitalWrite(motor2B, LOW);
-  digitalWrite(motor3A, LOW); digitalWrite(motor3B, LOW);
-  digitalWrite(motor4A, LOW); digitalWrite(motor4B, LOW);
+  digitalWrite(motor1A, LOW);
+  digitalWrite(motor2A, LOW);
   ledcSetup(ledChannel1, freq, resolution);
   ledcSetup(ledChannel2, freq, resolution);
-  ledcSetup(ledChannel3, freq, resolution);
-  ledcSetup(ledChannel4, freq, resolution);
   ledcAttachPin(motor1PWM, ledChannel1);
   ledcAttachPin(motor2PWM, ledChannel2);
-  ledcAttachPin(motor3PWM, ledChannel3);
-  ledcAttachPin(motor4PWM, ledChannel4);
   // Connect to Wi-Fi network with SSID and password
-  /***WiFi.softAP(ssid, password);
+  WiFi.softAP(ssid, password);
   IPAddress IP = WiFi.softAPIP();
   Serial.print("IP");
   Serial.println(IP);
-  server.begin();**/
-  Serial.print("Connecting to ");
+  server.begin();
+  /*Serial.print("Connecting to ");
   Serial.println(ssid);
   WiFi.begin(ssid, password);
   while (WiFi.status() != WL_CONNECTED) {
@@ -88,17 +74,16 @@ void setup() {
   Serial.println("WiFi connected.");
   Serial.println("IP address: ");
   Serial.println(WiFi.localIP());
-  server.begin();
-      get_components(5,60);
-    get_speeds(v1.vx, v1.vy, 0);
-    calculate_dutycycle();
-    ledcWrite(ledChannel1, wheelSpeed.dutyCycle[0]);
-    ledcWrite(ledChannel2, wheelSpeed.dutyCycle[1]);
-    ledcWrite(ledChannel3, wheelSpeed.dutyCycle[2]);
-    ledcWrite(ledChannel4, wheelSpeed.dutyCycle[3]);
-    run_motors();
+  server.begin();*/
 }
-
+  void loop(){
+    for(int i =130; i<=255;i++){
+      ledcWrite(ledChannel1, i);
+      ledcWrite(ledChannel2, i);
+      delay(500);
+      Serial.println(i);
+    }
+  }
 /**void loop(){
   WiFiClient client = server.available();   // Listen for incoming clients  
   if (client) {                             // If a new client connects,
@@ -214,82 +199,3 @@ void setup() {
             }
     }
   }***/
-  void loop(){
-
-  }
-  /** calculates the linear velocity of robot by specific range given by user***/
- float get_speed(float range){ 
-    _speed = (0.62 * range)/100; //0.62= linear velocity of robot calculated by rpm
-    return _speed;
- }
- void get_components(float range, int angle){
-  v1.magnitude= get_speed(range);
-  double degree_angle=angle*(180/3.1415);
-  v1.vx= v1.magnitude* cos(degree_angle); ///global variables from structure v1
-  v1.vy= v1.magnitude* sin(degree_angle); ///global variables from structure v1
-  Serial.print(v1.magnitude);
-  Serial.print(cos(degree_angle));
-  Serial.print(v1.vx);
-  Serial.println(v1.vy);
-  
-    if(angle>=0 && angle<=90){
-    //  v1.vx=(+1)*v1.vx;
-     // v1.vy=(+1)*v1.vy;
-      v1.quadrant=1;
-      }
-    else if(angle>90 && angle<=180){
-     // v1.vx=(-1)*v1.vx;
-      // v1.vy=(+1)*v1.vy;
-      v1.quadrant=2;
-      }
-    else if(angle>180 && angle<=270){
-      // v1.vx=(-1)*v1.vx;
-      // v1.vy=(-1)*v1.vy;
-      v1.quadrant=3;
-    }
-    else if(angle>270 && angle<=360){
-      // v1.vx=(+1)*v1.vx;
-      // v1.vy=(-1)*v1.vy;
-      v1.quadrant=4;
-    }
- }
- void get_speeds(float v_x,float v_y, float omega)
- {
-  wheelSpeed.u[0]=(0.25)*(((v_y+v_x)*100)-((LEN-WID)*omega));
-  wheelSpeed.u[1]=(0.25)*(((v_y-v_x)*100)+(LEN-WID)*omega);
-  wheelSpeed.u[2]=(0.25)*(((v_y-v_x)*100)-(LEN-WID)*omega);
-  wheelSpeed.u[3]=(0.25)*(((v_y+v_x)*100)+(LEN-WID)*omega);
-
-  Serial.print(wheelSpeed.u[0]);
-  Serial.print(wheelSpeed.u[1]);
-  Serial.print(wheelSpeed.u[2]);
-  Serial.println(wheelSpeed.u[3]);
- }
- /****caculates the duty cycle by mapping a given value from range of 0-100****/
- void calculate_dutycycle(){
-    wheelSpeed.dutyCycle[0]= map(wheelSpeed.u[0], -5, 5, 130, 255);
-    wheelSpeed.dutyCycle[1]= map(wheelSpeed.u[1], -5, 5, 130, 255);
-    wheelSpeed.dutyCycle[2]= map(wheelSpeed.u[2], -5, 5, 130, 255);
-    wheelSpeed.dutyCycle[3]= map(wheelSpeed.u[3], -5, 5, 130, 255);
-    Serial.println(wheelSpeed.dutyCycle[0]);
-    Serial.println(wheelSpeed.dutyCycle[1]);
-    Serial.println(wheelSpeed.dutyCycle[2]);
-    Serial.println(wheelSpeed.dutyCycle[3]);
-     
- }
- /** DEMO FUNCTION TO RUN MOTORS **/
- void run_motors(){
-  if(v1.quadrant==1 || v1.quadrant==4){ ///for quadrant 1 & 4
-   digitalWrite(motor1A, HIGH); digitalWrite(motor1B, LOW);
-   digitalWrite(motor2A, HIGH); digitalWrite(motor2B, LOW);
-   digitalWrite(motor3A, LOW); digitalWrite(motor3B, HIGH);
-   digitalWrite(motor4A, LOW); digitalWrite(motor4B, HIGH);
- }
- 
-  if(v1.quadrant==2 || v1.quadrant==3) {///for quadrant 2 & 3
-   digitalWrite(motor1A, LOW); digitalWrite(motor1B, HIGH);
-   digitalWrite(motor2A, LOW); digitalWrite(motor2B, HIGH);
-   digitalWrite(motor3A, HIGH); digitalWrite(motor3B, LOW);
-   digitalWrite(motor4A, HIGH); digitalWrite(motor4B, LOW);
-  }
- }
