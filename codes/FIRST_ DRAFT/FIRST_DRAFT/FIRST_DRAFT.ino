@@ -1,7 +1,7 @@
  #include <WiFi.h>
   
-  const char* ssid = "tAlHa SaJJaD";
-  const char* password = "talha081"; 
+  const char* ssid = "educational bot";
+  const char* password = "123456789"; 
   
   WiFiServer server(80);
 
@@ -36,7 +36,12 @@ void setup() {
   digitalWrite(motor4A, LOW); digitalWrite(motor4B, LOW);
 
   // Connect to Wi-Fi network with SSID and password
-  Serial.print("Connecting to ");
+  WiFi.softAP(ssid, password);
+  IPAddress IP = WiFi.softAPIP();
+  Serial.print("IP");
+  Serial.println(IP);
+  server.begin();
+  /**Serial.print("Connecting to ");
   Serial.println(ssid);
   WiFi.begin(ssid, password);
   while (WiFi.status() != WL_CONNECTED) {
@@ -48,7 +53,7 @@ void setup() {
   Serial.println("WiFi connected.");
   Serial.println("IP address: ");
   Serial.println(WiFi.localIP());
-  server.begin();
+  server.begin();***/
 }
 
 void loop(){
