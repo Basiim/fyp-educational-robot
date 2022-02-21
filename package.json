@@ -6,6 +6,12 @@
     "scripts": {
         "start": "node server.js"
     },
+    "pkg": {
+        "assets": [ "views/**/*",
+                    "node_modules/**/*"],
+        "targets": [ "node16-win-x64" ],
+        "outputPath": "dist"
+    },
     "author": "",
     "license": "ISC",
     "dependencies": {
@@ -19,7 +25,9 @@
         "file-saver": "^2.0.5",
         "font-awesome": "^4.7.0",
         "http": "0.0.1-security",
-        "ip": "^1.1.5"
+        "ip": "^1.1.5",
+        "open": "^8.4.0",
+        "pkg": "^5.5.2"
     },
     "devDependencies": {
         "handlebars": "^4.7.7"

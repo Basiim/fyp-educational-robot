@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/toolbox_style.css">
+    <link rel="stylesheet" href="/node_modules/font-awesome/css/font-awesome.min.css">
+    <title>BlocklyBot</title>
+</head>
+
+<body>
+    <div class="header">
+        <h1 style="text-align: center;"><%=title%></h1>
+        <p>sending data to: <span id="curIP">0.0.0.0</span></p>
+        <p>State: <%=state%></p>
+    </div>
+    <div class="main">
+        <!-- BLOCKLY WORKSPACE -->
+        <div id="blocklyDiv" style="height: 65vh; width: 100vw;"></div>
+        <xml id="toolbox" style="display: none;">
+            <category name="START" colour="#00d080" toolboxitemid="start">
+                <block type="input" disabled='disabled'></block>
+            </category>
+            <category name="MOVEMENT" colour="#07b7a6" toolboxitemid="movement">
+                <block type="forward"></block>
+                <block type="backward"></block>
+                <block type="stop"></block>
+                <block type="direction"></block>
+                <block type="speed"></block>
+            </category>
+            <category name="LOOPS" colour="#fc832e" toolboxitemid="loops">
+                <block type="repeat"></block>
+                <block type="for"></block>
+                <block type="while"></block>
+            </category>
+            <category name="CONDITIONS" colour="#edc620" toolboxitemid="conditions">
+                <block type="ifelse"></block>
+                <block type="if"></block>
+            </category>
+            <category name="MATH/LOGIC" colour="#8831c2" toolboxitemid="math">
+                <block type="math_number"></block>
+                <block type="logic_boolean"></block>
+            </category>
+            <category name="VARIABLES" colour="#6aa2b7" toolboxitemid="variables"></category>
+            <category name="FUNCTIONS" colour="#412f9d" toolboxitemid="functions"></category>
+            <category name="MISC" colour="#fe96aa" toolboxitemid="misc">
+                <block type="delay"></block>
+            </category>
+        </xml>
+        <!-- Default block -->
+        <xml id="main" style="display: none">
+            <block type="input"></block>
+        </xml>
+    </div>
+    <div class="cmds" id="cmds"></div><br>
+    <input type="text" placeholder="IP address" id="ipAdd">
+    <button type="button" onclick="saveIP();">Save IP</button>
+    <button onclick="runCode()"><i class="fa fa-play"></i>  Run Code</button>
+    <button onclick="showCode()"><i class="fa fa-bars"></i>  Show Code</button>
+    <button onclick="saveCode()"><i class="fa fa-save"></i>  Save Code</button>
+    <input type="file" id="files" name="file" /> 
+    <button onclick="loadCode()">Load Code</button>
+
+    <script src="node_modules/blockly/blockly.min.js"></script>
+    <script src="assets/js/buttonsBehaviour.js"></script>
+    <script src="assets/js/blocks.js"></script>
+    <script src="assets/js/generator.js"></script>
+    <script src="node_modules/file-saver/src/FileSaver.js"></script>
+    <script>
+        var ip = "0.0.0.0";
+        document.getElementById('curIP').innerHTML = ip;
+        Blockly.Themes.MyTheme = Blockly.Theme.defineTheme('MyTheme', {
+            'base': Blockly.Themes.Classic,
+            'componentStyles': {
+                'workspaceBackgroundColour': '#e6e6e6',
+                'toolboxBackgroundColour': '#ffffff',
+                'toolboxForegroundColour': '#000',
+                'flyoutBackgroundColour': '#252526',
+                'flyoutForegroundColour': '#ccc',
+                'flyoutOpacity': 1,
+                'scrollbarColour': '#ff0000',
+                'insertionMarkerColour': '#fff',
+                'insertionMarkerOpacity': 0.3,
+                'scrollbarOpacity': 0.4,
+                'cursorColour': '#d0d0d0',
+                'blackBackground': '#333'
+            }
+        });
+        var workspace = Blockly.inject('blocklyDiv', {
+            toolbox: document.getElementById('toolbox'),
+            move: {
+                scrollbars: {
+                    vertical: true,
+                    horizontal: false
+                }
+            },
+            trashcan: true,
+            theme: Blockly.Themes.MyTheme,
+            renderer: 'zelos'
+        });
+        Blockly.Xml.domToWorkspace(document.getElementById('main'), workspace); // by default main block is displayed
+    </script>
+</body>
+
+</html>

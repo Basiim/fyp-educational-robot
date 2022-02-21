@@ -1,9 +1,10 @@
 const express = require('express');
-var bodyParser = require('body-parser');
+const bodyParser = require('body-parser');
 const ip = require('ip');
+const open = require('open');
 const app = express();
 const port = process.env.PORT || 3000;
-var status;
+let status;
 
 app.use(bodyParser.urlencoded({extend:true}));
 app.use("/", express.static(__dirname + "/"));
@@ -14,9 +15,9 @@ app.use("/generators", express.static(__dirname + "/generators"));
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
 app.set('views', __dirname);
-
 app.get("/", function(req, res) {
     console.log("Index Loaded");
+    //res.sendFile(__dirname + "/index.ejs");
     res.render(__dirname + "/index.ejs",{title:"Educational Bot", state:"Free"});
 });
 app.get("/ack", function(req,res){
@@ -25,6 +26,7 @@ app.get("/ack", function(req,res){
     status = 'busy';
     res.destroy();
 })
+
 app.get("/free", function(req,res){
     //res.render(__dirname + "/index.ejs",{title:"Educational Bot", state:"Free"});
     status = 'free';
@@ -33,4 +35,6 @@ app.get("/free", function(req,res){
 app.listen(port, function() {
     console.log("Server is Live");
     console.log(ip.address());
+    // TODO study pkg documentation and make .exe work
+    open('http://localhost:3000');
 })
