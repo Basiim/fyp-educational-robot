@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const ip = require('ip');
 const open = require('open');
+const path = require("path");
 const app = express();
 const port = process.env.PORT || 3000;
 let status;
@@ -14,11 +15,12 @@ app.use("/blocks", express.static(__dirname + "/blocks"));
 app.use("/generators", express.static(__dirname + "/generators"));
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
-app.set('views', __dirname);
+const dirPath = path.join(__dirname, '\\views');
+app.set('views', dirPath);
 app.get("/", function(req, res) {
     console.log("Index Loaded");
     //res.sendFile(__dirname + "/index.ejs");
-    res.render(__dirname + "/index.ejs",{title:"Educational Bot", state:"Free"});
+    res.render('index.ejs',{title:"Educational Bot", state:"Free"});
 });
 app.get("/ack", function(req,res){
     //res.render(__dirname + "/index.ejs",{title:"Educational Bot", state:"Busy"});
