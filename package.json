@@ -13,6 +13,7 @@
         "express": "^4.17.1",
         "file-saver": "^2.0.5",
         "font-awesome": "^4.7.0",
-        "http": "0.0.1-security"
+        "http": "0.0.1-security",
+        "ip": "^1.1.5"
     }
 }

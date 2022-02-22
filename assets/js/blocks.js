@@ -202,3 +202,45 @@ Blockly.Blocks['delay'] = {
         this.setHelpUrl("");
     }
 };
+/********** VARIABLE **********/
+// Block for variable getter.
+Blockly.Blocks['variables_get'] = {
+    init: function() {
+      this.appendDummyInput()
+        .appendField(new Blockly.FieldVariable("VAR_NAME"), "FIELD_NAME");
+      this.setOutput(true, null);
+    }
+  };
+  
+  // Block for variable setter.
+  Blockly.Blocks['variables_set'] = {
+    init: function() {
+      this.appendValueInput("NAME")
+          .setCheck(null)
+          .appendField("set")
+          .appendField(new Blockly.FieldVariable("VAR_NAME"), "FIELD_NAME")
+          .appendField("to");
+      this.setOutput(true, null);
+    }
+  };
+  
+// Blockly.Blocks['variables_get'] = {
+//     init: function() {
+//       this.appendDummyInput()
+//         .appendField(new Blockly.FieldVariable("VAR_NAME"), "FIELD_NAME");
+//       this.setOutput(true, null);
+//     }
+//   };
+  
+//   // Block for variable setter.
+//   Blockly.Blocks['variables_set'] = {
+//     init: function() {
+//       this.appendValueInput("NAME")
+//           .setCheck(null)
+//           .appendField("set")
+//           .appendField(new Blockly.FieldVariable("VAR_NAME"), "FIELD_NAME")
+//           .appendField("to");
+//       this.setOutput(true, null);
+//     }
+//   };
+  

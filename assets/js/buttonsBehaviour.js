@@ -21,6 +21,7 @@ function showCode() {
 function runCode() {
         Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
         var code = Blockly.JavaScript.workspaceToCode(workspace);
+        console.log(code);
         var codeJSON = JSON.parse(code);
         let len = codeJSON.commands.length;
         console.log(codeJSON.commands);
@@ -82,12 +83,7 @@ function saveCode(){
 function loadCode(){
         readBlob();
     }
-    /*** 
-     * 
-     * Read what this function does
-     * https://www.html5rocks.com/en/tutorials/file/dndfiles//
-     *  
-     ***/
+
 function readBlob(opt_startByte, opt_stopByte) {
         var blockss;
         var files = document.getElementById('files').files;
