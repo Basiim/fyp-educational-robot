@@ -1,16 +1,17 @@
 function saveIP() {
     ip = document.getElementById('ipAdd').value;
     document.getElementById('curIP').innerHTML = ip;
-    }
+}
 function showCode() {
         Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
         let code = Blockly.JavaScript.workspaceToCode(workspace);
+        console.log(code);
         let codeJSON = JSON.parse(code);
         let index = codeJSON.commands.indexOf("end");
         codeJSON.commands.splice(index, 1);
         console.log(codeJSON.commands);
         document.getElementById('cmds').innerHTML = codeJSON.commands;
-    }
+}
 function runCode() {
         Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
         let code = Blockly.JavaScript.workspaceToCode(workspace);
@@ -56,10 +57,10 @@ function runCode() {
                         sendReq(url);
                     }
             }
-            setTimeout(function(){
+            /*setTimeout(function(){
                 sendReq(url);
             },500);
-            console.log(url);
+            console.log(url);*/
             url = "http://" + ip;
         }
     }
@@ -73,7 +74,7 @@ function saveCode(){
         let blob = new Blob([xmlDoc], {
             type: "xml"
         });
-        saveAs(blob, "code.xml");
+        saveAs(blob, "code.edb");
     }
 function loadCode(){
         readBlob();

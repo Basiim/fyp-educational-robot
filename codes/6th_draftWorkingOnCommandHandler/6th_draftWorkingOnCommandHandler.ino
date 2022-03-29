@@ -138,15 +138,11 @@ void loop(){
             // turns the GPIOs on and off 
             if(header.indexOf("GET /loop")>=0){
               Enqueue(&front1,&rear1,"loop");
-              Serial.println("this is the index of loop");
               indexloop=i;
-              Serial.println(indexloop);
               i++;
               int l= header.indexOf("-");
                 loopString.setCharAt(0, header[l+1]);
                 noOfiterations=loopString.toInt();
-                Serial.println(" here are iterations of the loop");
-                Serial.println(noOfiterations);
             }
             else if (header.indexOf("GET /start") >= 0) {
              Enqueue(&front1,&rear1,"start");
@@ -195,9 +191,7 @@ void loop(){
             }
             else if(header.indexOf("GET /endloop")>=0){
                 Enqueue(&front1,&rear1,"endloop");
-                Serial.println("this is the index of endloop");
                 indexEndloop=i;
-                Serial.println(indexEndloop);
                 i++;
                }
             else if(header.indexOf("GET /final")>=0){
@@ -205,7 +199,6 @@ void loop(){
                 ///displayQueue();
                 postRequest("ack");
                 Enqueue(&front1,&rear1,"final");
-                Serial.println("hi, I am displayQueue of linked list 1");
                 displayQueue(&front1,&rear1);
                 command_handler();
                 i=0;
@@ -263,8 +256,6 @@ void loop(){
      if(LL1_command=="loop")
      {
        int sizeOfLoop=(indexEndloop-indexloop);
-       Serial.println("sizeOfLoop");
-       Serial.println(sizeOfLoop);
        String TempArray[sizeOfLoop]; 
        LL1_command= Dequeue(&front1,&rear1);
        while(LL1_command!="endloop")

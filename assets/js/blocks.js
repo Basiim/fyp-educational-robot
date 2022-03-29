@@ -6,7 +6,7 @@ Blockly.Blocks['input'] = {
         this.appendStatementInput("commands")
             .setCheck("String");
         this.setColour("#00d080");
-        this.setTooltip("");
+        this.setTooltip("> This is the main function which is executed by default");
         this.setHelpUrl("");
     }
 };
@@ -18,7 +18,8 @@ Blockly.Blocks['forward'] = {
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
         this.setColour("#07b7a6");
-        this.setTooltip("");
+        this.setTooltip("> This block will move the robot forward with specified speed.\n" +
+                        "> The block will only run if speed block is initiated before.");
         this.setHelpUrl("");
     }
 };
@@ -29,7 +30,7 @@ Blockly.Blocks['stop'] = {
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
         this.setColour("#07b7a6");
-        this.setTooltip("");
+        this.setTooltip("> This block will stop the robot if it was previously moving.\n");
         this.setHelpUrl("");
     }
 };
@@ -40,7 +41,8 @@ Blockly.Blocks['backward'] = {
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
         this.setColour("#07b7a6");
-        this.setTooltip("");
+        this.setTooltip("> This block will move the robot backwards with specified speed.\n" +
+                        "> The block will only run if speed block is initiated before.");
         this.setHelpUrl("");
     }
 };
@@ -52,7 +54,8 @@ Blockly.Blocks['direction'] = {
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
         this.setColour("#07b7a6");
-        this.setTooltip("");
+        this.setTooltip("> This block will move the robot at an angle provided with specified speed.\n" +
+                        "> The block will only run if speed block is initiated before.");
         this.setHelpUrl("");
     }
 };
@@ -66,7 +69,8 @@ Blockly.Blocks['speed'] = {
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
         this.setColour("#07b7a6");
-        this.setTooltip("");
+        this.setTooltip("> This block will set the speed of the robot. \n" +
+                        "> The range of speed is from 0-100.");
         this.setHelpUrl("");
     }
 };
@@ -185,6 +189,29 @@ Blockly.Blocks['if'] = {
         this.setColour("#edc620");
         this.setTooltip("");
         this.setHelpUrl("");
+    }
+};
+/********** VARS **********/
+Blockly.Blocks['variables_get_panda'] = {
+    init: function() {
+        this.appendDummyInput()
+            .appendField(new Blockly.FieldVariable(
+                "VAR_NAME", ['Panda'], 'Panda'), "FIELD_NAME");
+        this.setOutput(true, 'Panda');
+    }
+};
+
+// Block for variable setter.
+Blockly.Blocks['variables_set_panda'] = {
+    init: function() {
+        this.appendValueInput("NAME")
+            .setCheck('Panda')
+            .appendField("set")
+            .appendField(new Blockly.FieldVariable(
+                "VAR_NAME", null, ['Panda'], 'Panda'), "FIELD_NAME")
+            .appendField("to");
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, null);
     }
 };
 /********** MISC **********/

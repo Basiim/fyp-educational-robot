@@ -20,7 +20,7 @@ app.set('views', dirPath);
 app.get("/", function(req, res) {
     console.log("Index Loaded");
     //res.sendFile(__dirname + "/index.ejs");
-    res.render('index.ejs',{title:"Educational Bot", state:"Free"});
+    res.render('index.ejs',{title:"Educational Bot", state:"Free", mainCode:"Main Test", loopCode:"loop Test"});
 });
 app.get("/ack", function(req,res){
     //res.render(__dirname + "/index.ejs",{title:"Educational Bot", state:"Busy"});
@@ -38,5 +38,5 @@ app.listen(port, function() {
     console.log("Server is Live");
     console.log(ip.address());
     // TODO study pkg documentation and make .exe work
-    open('http://localhost:3000');
+    //open('http://localhost:3000');
 })
