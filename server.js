@@ -15,7 +15,7 @@ app.use("/blocks", express.static(__dirname + "/blocks"));
 app.use("/generators", express.static(__dirname + "/generators"));
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
-const dirPath = path.join(__dirname, '\\views');
+const dirPath = path.join(__dirname, '/views');
 app.set('views', dirPath);
 app.get("/", function(req, res) {
     console.log("Index Loaded");
