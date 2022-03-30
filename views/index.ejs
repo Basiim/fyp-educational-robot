@@ -8,26 +8,28 @@
     <link rel="stylesheet" href="/assets/css/style.css">
     <link rel="stylesheet" href="/assets/css/toolbox_style.css">
     <link rel="stylesheet" href="/node_modules/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet"
-      href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.0/styles/default.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.0/styles/default.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/shepherd.js@8.3.1/dist/css/shepherd.css"/>
     <title>BlocklyBot</title>
 </head>
 
 <body>
     <div class="header">
         <h1 style="text-align: center;"><%=title%></h1>
-        <p>sending data to: <span id="curIP">0.0.0.0</span></p>
         <!--<p>State: <%=state%></p>-->
     </div>
     <div class="main">
         <div class="tab">
-            <button class="tablinks" onclick="selectTab(event,'Blockly')" id="defaultOpen">Blockly</button>
-            <button class="tablinks" onclick="selectTab(event,'Arduino')">Arduino Code</button>
+            <button class="tablinks blockBtn" onclick="selectTab(event,'Blockly')" id="defaultOpen">Blockly</button>
+            <button class="tablinks arduinoBtn" onclick="selectTab(event,'Arduino')">Arduino Code</button>
+            <button class="runBtn" onclick="runCode()"><i class="fa fa-play"></i>  Run Code</button>
+            <button class="showBtn" onclick="showCode()"><i class="fa fa-bars"></i>  Display Commands</button>
+            <p><span id="curIP">0.0.0.0</span></p>
         </div>
         <div id="Blockly" class="tabcontent">
             <!-- BLOCKLY WORKSPACE -->
-            <div id="blocklyDiv" style="height: 65vh; width: 100%;"></div>
-            <xml id="toolbox" style="display: none;">
+            <div class="blocklyClass" id="blocklyDiv" style="height: 65vh; width: 100%;"></div>
+            <xml class="toolboxClass" id="toolbox" style="display: none;">
                 <category name="START" colour="#00d080" toolboxitemid="start">
                     <block type="input" disabled='disabled'></block>
                 </category>
@@ -70,13 +72,7 @@
             </xml>
 
             <div class="cmds" id="cmds"></div><br>
-            <input type="text" placeholder="IP address" id="ipAdd">
-            <button type="button" onclick="saveIP();">Save IP</button>
-            <button onclick="runCode()"><i class="fa fa-play"></i>  Run Code</button>
-            <button onclick="showCode()"><i class="fa fa-bars"></i>  Show Code</button>
-            <button onclick="saveCode()"><i class="fa fa-save"></i>  Save Code</button>
-            <input type="file" id="files" name="file" />
-            <button onclick="loadCode()">Load Code</button>
+            
         </div>
 
         <div id="Arduino" class="tabcontent">
@@ -90,13 +86,21 @@
             </div>
             <button onclick="showCodeArd()"><i class="fa fa-bars"></i>  Show Code</button>
         </div>
+        <div class="tab">
+            <input type="text" placeholder="IP address" id="ipAdd">
+            <button type="button" onclick="saveIP();">Save IP</button>
+            <button onclick="saveCode()"><i class="fa fa-save"></i>  Save Code</button>
+            <input type="file" id="files" name="file" />
+            <button onclick="loadCode()">Load Code</button>
+        </div>
     </div>
-
+    <script src="https://cdn.jsdelivr.net/npm/shepherd.js@8.3.1/dist/js/shepherd.min.js"></script>
     <script src="node_modules/blockly/blockly.min.js"></script>
     <script src="assets/js/buttonsBehaviour.js"></script>
     <script src="assets/js/blocks.js"></script>
     <script src="assets/js/generator.js"></script>
     <script src="assets/js/index.js"></script>
+    <script src="assets/js/blocklyTour.js"></script>
     <script src="assets/js/blockly2arduino.js"></script>
     <script src="node_modules/file-saver/src/FileSaver.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.0/highlight.min.js"></script>

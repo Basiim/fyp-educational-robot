@@ -11,6 +11,7 @@ app.use(bodyParser.urlencoded({extend:true}));
 app.use("/", express.static(__dirname + "/"));
 app.use("/assets/css", express.static(__dirname + "/assets/css"));
 app.use("/assets/js", express.static(__dirname + "/assets/js"));
+app.use("/assets/img", express.static(__dirname + "/assets/img"));
 app.use("/blocks", express.static(__dirname + "/blocks"));
 app.use("/generators", express.static(__dirname + "/generators"));
 app.engine('html', require('ejs').renderFile);
