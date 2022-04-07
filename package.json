@@ -2,14 +2,18 @@
     "name": "fyp",
     "version": "1.0.1",
     "description": "",
-    "main": "index.js",
+    "main": "assets/js/index.js",
     "scripts": {
         "start": "node server.js"
     },
     "pkg": {
-        "assets": [ "views/**/*",
-                    "node_modules/**/*"],
-        "targets": [ "node16-win-x64" ],
+        "assets": [
+            "views/**/*",
+            "node_modules/**/*"
+        ],
+        "targets": [
+            "node16-win-x64"
+        ],
         "outputPath": "dist"
     },
     "author": "",
@@ -24,10 +28,12 @@
         "express-handlebars": "^6.0.2",
         "file-saver": "^2.0.5",
         "font-awesome": "^4.7.0",
+        "highlight.js": "^11.5.0",
         "http": "0.0.1-security",
         "ip": "^1.1.5",
         "open": "^8.4.0",
-        "pkg": "^5.5.2"
+        "pkg": "^5.5.2",
+        "shepherd.js": "^9.0.0"
     },
     "devDependencies": {
         "handlebars": "^4.7.7"

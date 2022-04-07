@@ -1,18 +1,17 @@
-function saveIP() {
+saveIP = () => {
     ip = document.getElementById('ipAdd').value;
     document.getElementById('curIP').innerHTML = ip;
 }
-function showCode() {
+showCode = () => {
         Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
         let code = Blockly.JavaScript.workspaceToCode(workspace);
         console.log(code);
         let codeJSON = JSON.parse(code);
         let index = codeJSON.commands.indexOf("end");
         codeJSON.commands.splice(index, 1);
-        console.log(codeJSON.commands);
         document.getElementById('cmds').innerHTML = codeJSON.commands;
 }
-function runCode() {
+runCode = () => {
         Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
         let code = Blockly.JavaScript.workspaceToCode(workspace);
         let codeJSON = JSON.parse(code);
@@ -65,10 +64,10 @@ function runCode() {
         }
     }
     // TODO add response for fetch function
-function sendReq(url) {
+sendReq = (url) => {
         fetch(url, { method: 'GET', mode: 'no-cors' })
 }
-function saveCode(){
+saveCode = () => {
         let xmlCode  = Blockly.Xml.workspaceToDom(workspace);
         let xmlDoc = '<xml>' + xmlCode.innerHTML + "</xml>"
         let blob = new Blob([xmlDoc], {
@@ -76,7 +75,7 @@ function saveCode(){
         });
         saveAs(blob, "code.edb");
     }
-function loadCode(){
+loadCode = () => {
         readBlob();
     }
     /*** 
@@ -85,7 +84,7 @@ function loadCode(){
      * https://www.html5rocks.com/en/tutorials/file/dndfiles//
      *  
      ***/
-function readBlob() {
+readBlob = () => {
         let blockss;
         let files = document.getElementById('files').files;
         if (!files.length) {

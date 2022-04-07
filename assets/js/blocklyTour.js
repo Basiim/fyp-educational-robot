@@ -10,7 +10,7 @@ const tour = new Shepherd.Tour({
   });
   
   tour.addStep({
-    title: 'Hi! I am _______',
+    title: 'Hi! I am EduBot!',
     text: `Lets learn programming together!`,
 
     buttons: [

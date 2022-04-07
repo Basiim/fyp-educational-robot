@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/assets/css/toolbox_style.css">
     <link rel="stylesheet" href="/node_modules/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.0/styles/default.min.css">
+    <!--<link rel="stylesheet" href="/node_moudles/shepherd.js/dist/css/shepherd.css">-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/shepherd.js@8.3.1/dist/css/shepherd.css"/>
     <title>BlocklyBot</title>
 </head>
@@ -21,9 +22,9 @@
     <div class="main">
         <div class="tab">
             <button class="tablinks blockBtn" onclick="selectTab(event,'Blockly')" id="defaultOpen">Blockly</button>
-            <button class="tablinks arduinoBtn" onclick="selectTab(event,'Arduino')">Arduino Code</button>
+            <button class="tablinks arduinoBtn" onclick="selectTab(event,'Arduino'); showCodeArd();">Arduino Code</button>
+            <button class="tablinks showBtn" onclick="selectTab(event,'Commands'); showCode();"><i class="fa fa-bars"></i>  Display Commands</button>
             <button class="runBtn" onclick="runCode()"><i class="fa fa-play"></i>  Run Code</button>
-            <button class="showBtn" onclick="showCode()"><i class="fa fa-bars"></i>  Display Commands</button>
             <p><span id="curIP">0.0.0.0</span></p>
         </div>
         <div id="Blockly" class="tabcontent">
@@ -69,10 +70,7 @@
             <!-- Default block -->
             <xml id="main" style="display: none">
                 <block type="input"></block>
-            </xml>
-
-            <div class="cmds" id="cmds"></div><br>
-            
+            </xml>            
         </div>
 
         <div id="Arduino" class="tabcontent">
@@ -84,7 +82,9 @@
                     <pre><code class="hljs language-csharp" id="arduinoCodeLoop"></code></pre>
                 <pre><code>}</code></pre> 
             </div>
-            <button onclick="showCodeArd()"><i class="fa fa-bars"></i>  Show Code</button>
+        </div>
+        <div id="Commands" class="tabcontent">
+            <div class="cmds arduinoCodeDiv" id="cmds"></div><br>
         </div>
         <div class="tab">
             <input type="text" placeholder="IP address" id="ipAdd">
@@ -94,14 +94,14 @@
             <button onclick="loadCode()">Load Code</button>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/shepherd.js@8.3.1/dist/js/shepherd.min.js"></script>
+    <script src="node_modules/shepherd.js/dist/js/shepherd.min.js"></script>
     <script src="node_modules/blockly/blockly.min.js"></script>
     <script src="assets/js/buttonsBehaviour.js"></script>
     <script src="assets/js/blocks.js"></script>
     <script src="assets/js/generator.js"></script>
-    <script src="assets/js/index.js"></script>
     <script src="assets/js/blocklyTour.js"></script>
     <script src="assets/js/blockly2arduino.js"></script>
+    <script src="assets/js/selectTab.js"></script>
     <script src="node_modules/file-saver/src/FileSaver.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.0/highlight.min.js"></script>
     <script>hljs.highlightAll();</script>

@@ -107,3 +107,11 @@ button:hover {
 .walkClass {
   background-image: url("../img/robot.png");
 }
+
+.shepherd-footer{
+  min-height: 100px;
+  background-image: url("../img/robot.png");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 50% 100%;
+}

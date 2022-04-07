@@ -6,7 +6,14 @@ const {engine} = require('express-handlebars');
 const bodyparser = require('body-parser');
 const { allowInsecurePrototypeAccess } = require('@handlebars/allow-prototype-access');
 var Blockly = require('blockly');
-
+/*import express from 'express';
+import botController from './controllers/botController.js';
+import path from 'path';
+import Handlebars from 'handlebars';
+import { engine } from 'express-handlebars';
+import bodyparser from 'body-parser';
+import { allowInsecurePrototypeAccess } from '@handlebars/allow-prototype-access';
+import Blockly from 'blockly';*/
 var app = express();
 
 app.use(bodyparser.urlencoded({
