@@ -1,3 +1,24 @@
+/*************************************************************************************
+ * 
+ * 
+ * Title: Blocks
+ * 
+ * Version: 
+ * 
+ * Path: /assets/js/blocks.js
+ * 
+ * Authors: Basim Abdullah Tariq
+ *          Muhammad Talha Sajjad
+ * 
+ * Description: This file contains the block definition of all the custom blocks that 
+ *              are included in the app. These block definitions were made with the
+ *              help of blockly dev tools.
+ * 
+ * Refrence(s): https://blockly-demo.appspot.com/static/demos/blockfactory/index.html
+ * 
+ * 
+ *************************************************************************************/
+
 /********** MAIN **********/
 Blockly.Blocks['input'] = {
     init: function() {
@@ -192,7 +213,7 @@ Blockly.Blocks['if'] = {
     }
 };
 /********** VARS **********/
-Blockly.Blocks['variables_get_panda'] = {
+/*Blockly.Blocks['variables_get_panda'] = {
     init: function() {
         this.appendDummyInput()
             .appendField(new Blockly.FieldVariable(
@@ -213,7 +234,7 @@ Blockly.Blocks['variables_set_panda'] = {
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
     }
-};
+};*/
 /********** MISC **********/
 Blockly.Blocks['delay'] = {
     init: function() {

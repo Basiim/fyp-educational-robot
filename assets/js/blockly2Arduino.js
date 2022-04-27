@@ -1,3 +1,23 @@
+/*************************************************************************************
+ * 
+ * 
+ * Title: blockly2Arduino
+ * 
+ * Version:
+ * 
+ * Path: /assets/js/blockly2Arduino.js
+ * 
+ * Authors: Basim Abdullah Tariq
+ *          Muhammad Talha Sajjad
+ * 
+ * Description: This file contains the functions that converts blocks into arduino
+ *              code. It is to be noted that this code is arbitrary and may change 
+ *              based on the shape, size and the orientation of the robot.
+ * 
+ * Refrence(s):
+ * 
+ * 
+ *************************************************************************************/
 showCodeArd = () => {
     Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
     let code = Blockly.JavaScript.workspaceToCode(workspace);
@@ -15,32 +35,47 @@ showCodeArd = () => {
     for (let i = 0; i < codeJSON.commands.length; i++){
         if(codeJSON.commands[i] == 'forward' || codeJSON.commands[i] == 'backward' || codeJSON.commands[i] == 'stop' || codeJSON.commands[i].includes("/angle") || codeJSON.commands[i].includes("/speed")){
             arduinoCodeMain = `
+                    /** Motor control pins **/
                     const int motor1A 10; const int motor1B 11;
                     const int motor2A 12; const int motor2B 13;
                     const int motor3A 14; const int motor3B 15;
                     const int motor4A 16; const int motor4B 17;
 
+                    /** PWM Pins **/
+                    const int PWM1 18; const int PWM2 19;
+                    const int PWM3 20; const int PWM4 21;
+
                     pinMode(motor1A, OUTPUT); pinMode(motor1B, OUTPUT);
                     pinMode(motor2A, OUTPUT); pinMode(motor2B, OUTPUT);
                     pinMode(motor3A, OUTPUT); pinMode(motor3B, OUTPUT);
-                    pinMode(motor4A, OUTPUT); pinMode(motor4B, OUTPUT);`;
+                    pinMode(motor4A, OUTPUT); pinMode(motor4B, OUTPUT);
+                    pinMode(PWM1, OUTPUT); pinMode(PWM2, OUTPUT);
+                    pinMode(PWM3, OUTPUT); pinMode(PWM4, OUTPUT);`;
             
             switch(codeJSON.commands[i]){
                 case 'forward': 
                     arduinoCodeLoop += `
                     /** Move Forward **/
-                    analogWrite(motor1A, ${speedMapped}); analogWrite(motor1B, 0);
-                    analogWrite(motor1A, ${speedMapped}); analogWrite(motor1B, 0);
-                    analogWrite(motor1A, ${speedMapped}); analogWrite(motor1B, 0);
-                    analogWrite(motor1A, ${speedMapped}); analogWrite(motor1B, 0);`;
+                    digitalWrite(motor1A, HIGH); digitalWrite(motor1B, LOW);
+                    digitalWrite(motor2A, HIGH); digitalWrite(motor2B, LOW);
+                    digitalWrite(motor3A, HIGH); digitalWrite(motor3B, LOW);
+                    digitalWrite(motor4A, HIGH); digitalWrite(motor4B, LOW);
+                    analogWrite(PWM1, ${speedMapped});
+                    analogWrite(PWM2, ${speedMapped});
+                    analogWrite(PWM3, ${speedMapped});
+                    analogWrite(PWM4, ${speedMapped});`;
                     break;
                 case 'backward': 
                     arduinoCodeLoop += `
                     /** Move Backward **/
-                    analogWrite(motor1A, 0); analogWrite(motor1B, ${speedMapped});
-                    analogWrite(motor1A, 0); analogWrite(motor1B, ${speedMapped});
-                    analogWrite(motor1A, 0); analogWrite(motor1B, ${speedMapped});
-                    analogWrite(motor1A, 0); analogWrite(motor1B, ${speedMapped});`;
+                    digitalWrite(motor1A, LOW); digitalWrite(motor1B, HIGH;
+                    digitalWrite(motor2A, LOW); digitalWrite(motor2B, HIGH);
+                    digitalWrite(motor3A, LOW); digitalWrite(motor3B, HIGH);
+                    digitalWrite(motor4A, LOW); digitalWrite(motor4B, HIGH);
+                    analogWrite(PWM1, ${speedMapped});
+                    analogWrite(PWM2, ${speedMapped});
+                    analogWrite(PWM3, ${speedMapped});
+                    analogWrite(PWM4, ${speedMapped});`;
                     break;
                 case 'stop':
                     arduinoCodeLoop += `
@@ -55,7 +90,7 @@ showCodeArd = () => {
                         console.log(codeJSON.commands[i].match(/\d+/));
                         angle = codeJSON.commands[i].match(/\d+/);
                         radAngle = angle * (3.1415 / 180);
-
+                        console.log(speedMapped);
                         // X and Y components
                         vx = speedMapped * Math.cos(radAngle);
                         vy = speedMapped * Math.sin(radAngle);

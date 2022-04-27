@@ -2,15 +2,16 @@
 <html lang="en">
 
 <head>
+    <!---------- META DATA ---------->
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/assets/css/style.css">
     <link rel="stylesheet" href="/assets/css/toolbox_style.css">
     <link rel="stylesheet" href="/node_modules/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.0/styles/default.min.css">
-    <!--<link rel="stylesheet" href="/node_moudles/shepherd.js/dist/css/shepherd.css">-->
+    <link rel="stylesheet" href="/node_modules/highlight.js/styles/default.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/shepherd.js@8.3.1/dist/css/shepherd.css"/>
+    <link rel="icon" href="/assets/img/fav.png">
     <title>BlocklyBot</title>
 </head>
 
@@ -20,16 +21,57 @@
         <!--<p>State: <%=state%></p>-->
     </div>
     <div class="main">
+        <!---------- NAV MENU UPPER + MOBILE ---------->
+        <div class="mobileNavBar">
+            <a href="#" class="navLogo">Edu. Bot</a>
+            <ul class="mobileNavMenu">
+                <li class="navItem">
+                    <a href="#" class="navLink tablinks blockBtn" onclick="selectTab(event,'Blockly')" id="defaultOpen">Blockly</a>
+                </li>
+                <li class="navItem">
+                    <a href="#" class="navLink tablinks arduinoBtn" onclick="selectTab(event,'Arduino'); showCodeArd();">Arduino Code</a>
+                </li>
+                <li class="navItem">
+                    <a href="#" class="navLink tablinks showBtn" onclick="selectTab(event,'Commands'); showCode();"><i class="fa fa-bars"></i>  Display Commands</a>
+                </li>
+                <li class="navItem">
+                    <a href="#" class="navLink tablinks runBtn" onclick="runCode()"><i class="fa fa-play"></i>  Run Code</a>
+                </li>
+                <li class="navItem">
+                    <a href="#" class="navLink tablinks" onclick="saveIP();">Save IP</a>
+                </li>
+                <li class="navItem">
+                    <a href="#" class="navLink tablinks" onclick="saveCode()"><i class="fa fa-save"></i>  Save Code</a>
+                </li>
+                <li class="navItem">
+                    <input type="file" id="files" name="file" />
+                </li>
+                <li class="navItem">
+                    <a href="#" class="navLink tablinks" onclick="loadCode()">Load Code</a>
+                </li>
+                <li class="navItem">
+                    <input type="text" placeholder="IP address" id="ipAdd">
+                </li>
+                <li class="navItem">
+                    <p><span id="curIP">0.0.0.0</span></p>
+                </li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
         <div class="tab">
             <button class="tablinks blockBtn" onclick="selectTab(event,'Blockly')" id="defaultOpen">Blockly</button>
-            <button class="tablinks arduinoBtn" onclick="selectTab(event,'Arduino'); showCodeArd();">Arduino Code</button>
-            <button class="tablinks showBtn" onclick="selectTab(event,'Commands'); showCode();"><i class="fa fa-bars"></i>  Display Commands</button>
+            <button class="tablinks arduinoBtn" onclick="selectTab(event,'Arduino'); showCodeArd(); showCodeArd();">Arduino Code</button>
+            <button class="tablinks showBtn" onclick="selectTab(event,'Commands'); showCode(); showCode();"><i class="fa fa-bars"></i>  Display Commands</button>
             <button class="runBtn" onclick="runCode()"><i class="fa fa-play"></i>  Run Code</button>
             <p><span id="curIP">0.0.0.0</span></p>
         </div>
         <div id="Blockly" class="tabcontent">
-            <!-- BLOCKLY WORKSPACE -->
-            <div class="blocklyClass" id="blocklyDiv" style="height: 65vh; width: 100%;"></div>
+            <!---------- BLOCKLY WORKSPACE ---------->
+            <div class="blocklyClass" id="blocklyDiv"></div>
             <xml class="toolboxClass" id="toolbox" style="display: none;">
                 <category name="START" colour="#00d080" toolboxitemid="start">
                     <block type="input" disabled='disabled'></block>
@@ -59,10 +101,12 @@
                     <label text="--Variables--"></label>
                     <block type="variables_get"></block>
                     <label text="--Variable Functions--"></label>
-                    <!-- TODO create generator for custom setter -->
                     <block type="variables_set"></block>
                 </category>
-                <category name="FUNCTIONS" colour="#412f9d" toolboxitemid="functions"></category>
+                <category name="FUNCTIONS" colour="#412f9d" toolboxitemid="functions">
+                    <block type="procedures_defreturn"></block>
+                    <block type="procedures_defnoreturn"></block>
+                </category>
                 <category name="MISC" colour="#fe96aa" toolboxitemid="misc">
                     <block type="delay"></block>
                 </category>
@@ -72,7 +116,7 @@
                 <block type="input"></block>
             </xml>            
         </div>
-
+        <!---------- NAV MENU BOTTOM ---------->
         <div id="Arduino" class="tabcontent">
             <div class="arduinoCodeDiv">
                 <pre><code>void main(){</code></pre>
@@ -94,7 +138,8 @@
             <button onclick="loadCode()">Load Code</button>
         </div>
     </div>
-    <script src="node_modules/shepherd.js/dist/js/shepherd.min.js"></script>
+    <!---------- LOADING SCRIPTS ---------->
+    <script src="https://cdn.jsdelivr.net/npm/shepherd.js@8.3.1/dist/js/shepherd.min.js"></script>
     <script src="node_modules/blockly/blockly.min.js"></script>
     <script src="assets/js/buttonsBehaviour.js"></script>
     <script src="assets/js/blocks.js"></script>
@@ -102,6 +147,7 @@
     <script src="assets/js/blocklyTour.js"></script>
     <script src="assets/js/blockly2arduino.js"></script>
     <script src="assets/js/selectTab.js"></script>
+    <script src="assets/js/menu.js"></script>
     <script src="node_modules/file-saver/src/FileSaver.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.0/highlight.min.js"></script>
     <script>hljs.highlightAll();</script>
@@ -143,6 +189,9 @@
         workspace.registerButtonCallback('CREATE_VARIABLE', function(button) {
             Blockly.Variables.createVariableButtonHandler(button.getTargetWorkspace(), null, 'panda');
         });
+
+        // Clear previously stored data
+        localStorage.clear();
     </script>
 </body>
 

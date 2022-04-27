@@ -1,3 +1,24 @@
+/*************************************************************************************
+ * 
+ * 
+ * Title: Buttons Behaviour
+ * 
+ * Version: 
+ * 
+ * Path: /assets/js/buttonBehaviour.js
+ * 
+ * Authors: Basim Abdullah Tariq
+ *          Muhammad Talha Sajjad
+ * 
+ * Description: This file contains the functions that are used to perform various 
+ *              tasks in the app. These functions are linked to the button on the 
+ *              app.
+ * 
+ * Refrence(s): 
+ * 
+ * 
+ *************************************************************************************/
+
 saveIP = () => {
     ip = document.getElementById('ipAdd').value;
     document.getElementById('curIP').innerHTML = ip;

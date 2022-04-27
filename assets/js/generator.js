@@ -1,3 +1,24 @@
+/*************************************************************************************
+ * 
+ * 
+ * Title: Generator
+ * 
+ * Version: 
+ * 
+ * Path: /assets/js/generator.js
+ * 
+ * Authors: Basim Abdullah Tariq
+ *          Muhammad Talha Sajjad
+ * 
+ * Description: This file contains the backend generator code of all the custom blocks 
+ *              that are included in the app. The generator code was edited as per the
+ *              requirement of the embedded software of our robot.
+ * 
+ * Refrence(s): 
+ * 
+ * 
+ *************************************************************************************/
+
 /********** MAIN **********/
 Blockly.JavaScript['input'] = function(block) {
     var statements_commands = Blockly.JavaScript.statementToCode(block, 'commands');
@@ -5,7 +26,7 @@ Blockly.JavaScript['input'] = function(block) {
     return code;
 };
 /********** MOVEMENT **********/
-Blockly.JavaScript['forward'] = function(block) {
+Blockly.JavaScript['forward'] = function (block) {
     return '"forward",';
 };
 Blockly.JavaScript['stop'] = function(block) {
@@ -113,6 +134,43 @@ Blockly.JavaScript['if'] = function(block) {
             return "";
     }
 };
+/********** FUNCTIONS **********/
+Blockly.JavaScript['procedures_defnoreturn'] = function(block) {
+    var functionName = block.getFieldValue('NAME');
+    var functionStatements = Blockly.JavaScript.statementToCode(block, 'STACK');
+
+    localStorage.setItem(`${functionName}`, functionName);
+    localStorage.setItem(`${functionName}-args`, block.arguments_);
+    localStorage.setItem(`${functionName}-code`, functionStatements);
+    return null;
+};
+Blockly.JavaScript['procedures_callnoreturn'] = function (block) {
+    var functionName = block.getFieldValue('NAME');
+    var code = '';
+
+    if (localStorage.getItem(`${functionName}-args`) != '')
+        console.log('Arguments:' + localStorage.getItem(`${functionName}-args`) != '');
+    if (localStorage.getItem(`${functionName}-code`) != '') 
+        code = localStorage.getItem(`${functionName}-code`);
+    //var code = `"func-${localStorage.functionNameNR}",` + localStorage.functionCodeNR;
+    return code;
+};
+Blockly.JavaScript['procedures_defreturn'] = function(block) {
+    var functionName = block.getFieldValue('NAME');
+    var functionStatements = Blockly.JavaScript.statementToCode(block, 'STACK');
+    var functionReturn = Blockly.JavaScript.valueToCode(block, 'RETURN');
+
+    console.log(functionReturn);
+
+    localStorage.setItem(`${functionName}`, functionName);
+    localStorage.setItem(`${functionName}-args`, block.arguments_);
+    localStorage.setItem(`${functionName}-code`, functionStatements);
+    return null;
+};
+Blockly.JavaScript['procedures_callreturn'] = function (block) {
+    var code = localStorage.functionCodeR;
+    return code;
+};
 /********** MISC **********/
 Blockly.JavaScript['delay'] = function(block) {
     var value_name = Blockly.JavaScript.valueToCode(block, 'delay', Blockly.JavaScript.ORDER_ATOMIC);
@@ -120,3 +178,5 @@ Blockly.JavaScript['delay'] = function(block) {
     var code = `"${value_name}",`;
     return code;
 };
+
+

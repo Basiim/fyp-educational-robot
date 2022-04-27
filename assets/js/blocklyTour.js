@@ -1,3 +1,25 @@
+/*************************************************************************************
+ * 
+ * 
+ * Title: Blockly Tour
+ * 
+ * Version:
+ * 
+ * Path: /assets/js/blocklyTour.js
+ * 
+ * Authors: Basim Abdullah Tariq
+ *          Muhammad Talha Sajjad
+ * 
+ * Description: This file contains a walkthrough tour of the app. This walkthrough is
+ *              made using Shepherd.js library, and teaches the user how to navigate
+ *              and use the app. To add or remove a step simply copy and paste or
+ *              delete .addStep function.
+ * 
+ * Refrence(s): https://shepherdjs.dev/docs/
+ * 
+ * 
+ *************************************************************************************/
+
 const tour = new Shepherd.Tour({
     useModalOverlay: true,
     defaultStepOptions: {
@@ -169,4 +191,4 @@ const tour = new Shepherd.Tour({
     id: 'creating'
   });
   
-  tour.start();
+  //tour.start();

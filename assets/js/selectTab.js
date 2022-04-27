@@ -1,3 +1,23 @@
+/*************************************************************************************
+ * 
+ * 
+ * Title: Select Tab
+ * 
+ * Version: 
+ * 
+ * Path: /assets/js/selectTab.js
+ * 
+ * Authors: Basim Abdullah Tariq
+ *          Muhammad Talha Sajjad
+ * 
+ * Description: This file contains the javaScript code for switching between tabs on
+ *              the app.
+ * 
+ * Refrence(s): https://www.w3schools.com/howto/howto_js_tabs.asp
+ * 
+ * 
+ *************************************************************************************/
+
 selectTab = (evt, tabName) => {
     let tabcontent, tablinks;
     tabcontent = document.getElementsByClassName("tabcontent");

@@ -18,8 +18,8 @@ app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
 const dirPath = path.join(__dirname, '/views');
 app.set('views', dirPath);
+
 app.get("/", function(req, res) {
-    console.log("Index Loaded");
     //res.sendFile(__dirname + "/index.ejs");
     res.render('index.ejs',{title:"Educational Bot", state:"Free", mainCode:"Main Test", loopCode:"loop Test"});
 });
