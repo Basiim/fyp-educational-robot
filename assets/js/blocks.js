@@ -3,7 +3,7 @@
  * 
  * Title: Blocks
  * 
- * Version: 
+ * Version: 0.1
  * 
  * Path: /assets/js/blocks.js
  * 

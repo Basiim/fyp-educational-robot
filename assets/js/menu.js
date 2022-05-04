@@ -3,7 +3,7 @@
  * 
  * Title: Menu
  * 
- * Version: 
+ * Version: 0.1
  * 
  * Path: /assets/js/menu.js
  * 

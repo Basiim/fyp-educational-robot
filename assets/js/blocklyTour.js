@@ -3,7 +3,7 @@
  * 
  * Title: Blockly Tour
  * 
- * Version:
+ * Version: 0.1
  * 
  * Path: /assets/js/blocklyTour.js
  * 
@@ -145,6 +145,29 @@ const tour = new Shepherd.Tour({
     id: 'creating'
   });
   tour.addStep({
+    text: `press me to see the 2D animated behaviour of the robot.`,
+    attachTo: {
+      element: '.animBtn',
+      on: 'bottom'
+    },
+    buttons: [
+      {
+        action() {
+          return this.back();
+        },
+        classes: 'shepherd-button-secondary',
+        text: 'Back'
+      },
+      {
+        action() {
+          return this.next();
+        },
+        text: 'Next'
+      }
+    ],
+    id: 'creating'
+  });
+  tour.addStep({
     text: `Blockly Workspace.`,
     attachTo: {
       element: '.blocklyClass',
@@ -191,4 +214,4 @@ const tour = new Shepherd.Tour({
     id: 'creating'
   });
   
-  //tour.start();
+  tour.start();

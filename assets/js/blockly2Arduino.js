@@ -3,7 +3,7 @@
  * 
  * Title: blockly2Arduino
  * 
- * Version:
+ * Version: 0.1
  * 
  * Path: /assets/js/blockly2Arduino.js
  * 
@@ -18,7 +18,7 @@
  * 
  * 
  *************************************************************************************/
-showCodeArd = () => {
+let showCodeArd = () => {
     Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
     let code = Blockly.JavaScript.workspaceToCode(workspace);
     let codeJSON = JSON.parse(code);

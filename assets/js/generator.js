@@ -3,7 +3,7 @@
  * 
  * Title: Generator
  * 
- * Version: 
+ * Version: 0.1
  * 
  * Path: /assets/js/generator.js
  * 

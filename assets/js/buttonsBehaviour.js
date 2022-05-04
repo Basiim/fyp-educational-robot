@@ -3,7 +3,7 @@
  * 
  * Title: Buttons Behaviour
  * 
- * Version: 
+ * Version: 0.1
  * 
  * Path: /assets/js/buttonBehaviour.js
  * 
@@ -19,11 +19,11 @@
  * 
  *************************************************************************************/
 
-saveIP = () => {
+let saveIP = () => {
     ip = document.getElementById('ipAdd').value;
     document.getElementById('curIP').innerHTML = ip;
 }
-showCode = () => {
+let showCode = () => {
         Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
         let code = Blockly.JavaScript.workspaceToCode(workspace);
         console.log(code);
@@ -32,7 +32,7 @@ showCode = () => {
         codeJSON.commands.splice(index, 1);
         document.getElementById('cmds').innerHTML = codeJSON.commands;
 }
-runCode = () => {
+let runCode = () => {
         Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
         let code = Blockly.JavaScript.workspaceToCode(workspace);
         let codeJSON = JSON.parse(code);
@@ -85,10 +85,8 @@ runCode = () => {
         }
     }
     // TODO add response for fetch function
-sendReq = (url) => {
-        fetch(url, { method: 'GET', mode: 'no-cors' })
-}
-saveCode = () => {
+let sendReq = url => fetch(url, { method: 'GET', mode: 'no-cors' })
+let saveCode = () => {
         let xmlCode  = Blockly.Xml.workspaceToDom(workspace);
         let xmlDoc = '<xml>' + xmlCode.innerHTML + "</xml>"
         let blob = new Blob([xmlDoc], {
@@ -96,16 +94,14 @@ saveCode = () => {
         });
         saveAs(blob, "code.edb");
     }
-loadCode = () => {
-        readBlob();
-    }
+let loadCode = () => readBlob();
     /*** 
      * TODO
      * Read what this function does
      * https://www.html5rocks.com/en/tutorials/file/dndfiles//
      *  
      ***/
-readBlob = () => {
+let readBlob = () => {
         let blockss;
         let files = document.getElementById('files').files;
         if (!files.length) {
@@ -126,4 +122,4 @@ readBlob = () => {
         };
         let blob = file.slice(start, stop + 1);
         reader.readAsBinaryString(blob);
-    }
+}

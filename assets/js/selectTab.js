@@ -3,7 +3,7 @@
  * 
  * Title: Select Tab
  * 
- * Version: 
+ * Version: 0.1
  * 
  * Path: /assets/js/selectTab.js
  * 
@@ -18,7 +18,7 @@
  * 
  *************************************************************************************/
 
-selectTab = (evt, tabName) => {
+let selectTab = (evt, tabName) => {
     let tabcontent, tablinks;
     tabcontent = document.getElementsByClassName("tabcontent");
     for(let i = 0; i<tabcontent.length;i++){

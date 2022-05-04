@@ -214,3 +214,17 @@ a {
     display: none;
   }
 } 
+
+.anim{
+  width: 25px;
+  height: 25px;
+}
+.animContainer{
+  min-height: 50vh;
+  overflow-y: scroll;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url('../img/bgAnim.png');
+  background-size: contain;
+}
