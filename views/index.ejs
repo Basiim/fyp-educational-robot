@@ -66,7 +66,7 @@
             <button class="tablinks blockBtn" onclick="selectTab(event,'Blockly')" id="defaultOpen">Blockly</button>
             <button class="tablinks arduinoBtn" onclick="selectTab(event,'Arduino'); showCodeArd(); showCodeArd();">Arduino Code</button>
             <button class="tablinks showBtn" onclick="selectTab(event,'Commands'); showCode(); showCode();"><i class="fa fa-bars"></i>  Display Commands</button>
-            <button class="tablinks animBtn" onclick="selectTab(event,'Animate'); animateNow()"><i class="fa fa-play"></i>  Simulate</button>
+            <button class="tablinks animBtn" onclick="selectTab(event,'Animate'); simulate()"><i class="fa fa-play"></i>  Simulate</button>
             <button class="runBtn" onclick="runCode()"><i class="fa fa-play"></i>  Run Code</button>
             <p><span id="curIP">0.0.0.0</span></p>
         </div>
@@ -132,6 +132,7 @@
             <div class="cmds arduinoCodeDiv" id="cmds"></div><br>
         </div>
         <div id="Animate" class="tabcontent">
+            <div id="speeds"></div>
             <div class="animContainer">
                 <img src="/assets/img/fav.png" alt="" class="anim">
             </div>

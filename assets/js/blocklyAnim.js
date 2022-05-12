@@ -21,6 +21,15 @@
 
 const tl = gsap.timeline({ defaults: { ease: "none" } });
 
+let robot = {
+    Vx: 0,
+    Vy: 0,
+    omega: 0,
+    U: [],
+    len: 5.5,
+    wid: 11
+}
+
 let animate = (x = 0, y = 0, time) => {
     console.log(time);
     tl.to('.anim',{ x: x, y: y, duration: time});
@@ -34,6 +43,7 @@ let simulate = () => {
     codeJSON.commands.splice(index, 1);
     let posX = 0, posY = 0, time = 0;
     let currentCommand = '', angle = 0, radAngle = 0;
+    let speed = 0, speedMapped;
     animate(posX, posY, 0);
     setTimeout(function () {
         for (let i = 0; i < codeJSON.commands.length; i++){
@@ -57,7 +67,9 @@ let simulate = () => {
                             angle = codeJSON.commands[i].match(/\d+/);
                             radAngle = angle * (3.1415 / 180);
                         } else if (codeJSON.commands[i].includes("/speed")) {
-                            console.log('blabla');
+                            currentCommand = "speed";
+                            speed = codeJSON.commands[i].match(/\d+/);
+                            speedMapped = (0.62*speed)/100;
                         } else if (codeJSON.commands[i].includes("/loop")) {
                             console.log('blabla');
                         }else if (codeJSON.commands[i].includes("/endloop")) {
@@ -76,15 +88,37 @@ let simulate = () => {
                                     time = codeJSON.commands[i];
                                 }
                                 if (currentCommand == "angle") {
-                                    posY += (codeJSON.commands[i] * 10) * -Math.sin(radAngle); // Distance * sin(angle)
-                                    posX += (codeJSON.commands[i] * 10) * Math.cos(radAngle);
+                                    console.log(speed);
+                                    posY += speed * -Math.sin(radAngle); // Distance * sin(angle)
+                                    posX += speed * Math.cos(radAngle);
                                     time = codeJSON.commands[i];
                                 }
                             }
                         }
+                        calculateSpeeds(speedMapped, radAngle);
                         animate(posX, posY, time);
                     }
             }
         }
     }, 1000);   
+}
+
+let calculateSpeeds = (magnitude, radAngle) => {
+    // Calculating X and Y components
+    robot.Vx = magnitude * Math.cos(radAngle);
+    robot.Vy = magnitude * Math.sin(radAngle);
+
+    // Calculating Individual Wheel speed (Inverse Kinematics)
+    robot.U[0] = Math.abs((0.25) * (((robot.Vy - robot.Vx) * 100) + (robot.len - robot.wid) * robot.omega)); 
+    robot.U[1] = Math.abs((0.25) * (((robot.Vy + robot.Vx) * 100) - (robot.len - robot.wid) * robot.omega)); 
+    robot.U[2] = Math.abs((0.25) * (((robot.Vy - robot.Vx) * 100) - (robot.len - robot.wid) * robot.omega)); 
+    robot.U[3] = Math.abs((0.25) * (((robot.Vy + robot.Vx) * 100) + (robot.len - robot.wid) * robot.omega));
+
+    //document.getElementById('speeds').innerText = `Wheel1: ${robot.U[0]} Wheel2: ${robot.U[1]} Wheel3: ${robot.U[2]} Wheel4: ${robot.U[3]}`;
+    console.log(`
+        Wheel1: ${robot.U[0]} 
+        Wheel2: ${robot.U[1]} 
+        Wheel3: ${robot.U[2]} 
+        Wheel4: ${robot.U[3]}
+    `)
 }
