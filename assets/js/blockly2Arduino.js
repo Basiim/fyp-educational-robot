@@ -3,7 +3,7 @@
  * 
  * Title: blockly2Arduino
  * 
- * Version: 0.1
+ * Version: 0.2
  * 
  * Path: /assets/js/blockly2Arduino.js
  * 
@@ -26,14 +26,23 @@ let showCodeArd = () => {
     let arduinoCodeMain = '';
     let arduinoCodeLoop = '';
     let speed, speedMapped;
+    let loopTimes;
+    let delay;
     let angle, radAngle;
     let vx = 0, vy = 0, omega = 0;
     let u = [], dutyCycle = [];
 
     codeJSON.commands.splice(index, 1);
-    
-    for (let i = 0; i < codeJSON.commands.length; i++){
-        if(codeJSON.commands[i] == 'forward' || codeJSON.commands[i] == 'backward' || codeJSON.commands[i] == 'stop' || codeJSON.commands[i].includes("/angle") || codeJSON.commands[i].includes("/speed")){
+
+    for (let i = 0; i < codeJSON.commands.length; i++) {
+        if (codeJSON.commands[i] == 'forward'
+            || codeJSON.commands[i] == 'backward'
+            || codeJSON.commands[i] == 'stop'
+            || codeJSON.commands[i].includes("/angle")
+            || codeJSON.commands[i].includes("/speed")
+            || codeJSON.commands[i].includes('/loop')
+            || codeJSON.commands[i].includes('/endloop')
+            || codeJSON.commands[i].includes('/delay')) {
             arduinoCodeMain = `
                     /** Motor control pins **/
                     const int motor1A 10; const int motor1B 11;
@@ -51,9 +60,9 @@ let showCodeArd = () => {
                     pinMode(motor4A, OUTPUT); pinMode(motor4B, OUTPUT);
                     pinMode(PWM1, OUTPUT); pinMode(PWM2, OUTPUT);
                     pinMode(PWM3, OUTPUT); pinMode(PWM4, OUTPUT);`;
-            
-            switch(codeJSON.commands[i]){
-                case 'forward': 
+
+            switch (codeJSON.commands[i]) {
+                case 'forward':
                     arduinoCodeLoop += `
                     /** Move Forward **/
                     digitalWrite(motor1A, HIGH); digitalWrite(motor1B, LOW);
@@ -65,7 +74,7 @@ let showCodeArd = () => {
                     analogWrite(PWM3, ${speedMapped});
                     analogWrite(PWM4, ${speedMapped});`;
                     break;
-                case 'backward': 
+                case 'backward':
                     arduinoCodeLoop += `
                     /** Move Backward **/
                     digitalWrite(motor1A, LOW); digitalWrite(motor1B, HIGH;
@@ -90,59 +99,94 @@ let showCodeArd = () => {
                         console.log(codeJSON.commands[i].match(/\d+/));
                         angle = codeJSON.commands[i].match(/\d+/);
                         radAngle = angle * (3.1415 / 180);
-                        console.log(speedMapped);
+                        console.log(speed);
                         // X and Y components
-                        vx = speedMapped * Math.cos(radAngle);
-                        vy = speedMapped * Math.sin(radAngle);
+                        vx = ((0.62 * speed) / 100) * Math.cos(radAngle);
+                        vy = ((0.62 * speed) / 100) * Math.sin(radAngle);
 
                         // Speeds
                         u[0] = Math.abs((0.25) * (((vy - vx) * 100) + (5.5 - 11) * omega));
                         u[1] = Math.abs((0.25) * (((vy + vx) * 100) - (5.5 - 11) * omega));
                         u[2] = Math.abs((0.25) * (((vy - vx) * 100) - (5.5 - 11) * omega));
                         u[3] = Math.abs((0.25) * (((vy + vx) * 100) + (5.5 - 11) * omega));
-                        console.log(u[0]);
-                        console.log(u[1]);
-                        console.log(u[2]);
-                        console.log(u[3]);
                         // Max speed
                         let maxSpeed = u[0];
                         for (let i = 0; i < 4; i++)
                             if (u[i] > maxSpeed)
                                 maxSpeed = u[i];
-                        
-                        let outMax = 255, outMin = 130;
-                        let outMaxMapped, outMinMapped = 0;
-                        outMaxMapped = (speedMapped - 0) * (outMax - outMin)/(100-0)+outMin;
-                        
+
                         // Duty Cycles
-                        dutyCycle[0] = (u[0] - (-maxSpeed)) * (outMaxMapped - outMinMapped) / (maxSpeed - (-maxSpeed)) + outMinMapped;
-                        dutyCycle[1] = (u[1] - (-maxSpeed)) * (outMaxMapped - outMinMapped) / (maxSpeed - (-maxSpeed)) + outMinMapped;
-                        dutyCycle[2] = (u[2] - (-maxSpeed)) * (outMaxMapped - outMinMapped) / (maxSpeed - (-maxSpeed)) + outMinMapped;
-                        dutyCycle[3] = (u[3] - (-maxSpeed)) * (outMaxMapped - outMinMapped) / (maxSpeed - (-maxSpeed)) + outMinMapped;
+                        dutyCycle[0] = map(u[0], -maxSpeed, maxSpeed, 0, speedMapped);
+                        dutyCycle[1] = map(u[1], -maxSpeed, maxSpeed, 0, speedMapped);
+                        dutyCycle[2] = map(u[2], -maxSpeed, maxSpeed, 0, speedMapped);
+                        dutyCycle[3] = map(u[3], -maxSpeed, maxSpeed, 0, speedMapped);
 
                         // Code
-                        arduinoCodeLoop += `
-                    /** Stop movement **/
-                    analogWrite(motor1A, ${dutyCycle[0]}); analogWrite(motor1B, 0);
-                    analogWrite(motor1A, ${dutyCycle[1]}); analogWrite(motor1B, 0);
-                    analogWrite(motor1A, ${dutyCycle[2]}); analogWrite(motor1B, 0);
-                    analogWrite(motor1A, ${dutyCycle[3]}); analogWrite(motor1B, 0);`;
+                        if (angle == 0) {
+                            arduinoCodeLoop += `
+                    /** Move at angle ${angle} degrees **/
+                    analogWrite(motor1A, 0); analogWrite(motor1B, ${dutyCycle[0].toFixed(2)});
+                    analogWrite(motor2A, ${dutyCycle[1].toFixed(2)}); analogWrite(motor2B, 0);
+                    analogWrite(motor3A, ${dutyCycle[2].toFixed(2)}); analogWrite(motor3B, 0);
+                    analogWrite(motor4A, 0); analogWrite(motor4B, ${dutyCycle[3].toFixed(2)});`;
+                        }
+                        if (angle > 0 && angle < 180) {
+                            arduinoCodeLoop += `
+                    /** Move at angle ${angle} degrees **/
+                    analogWrite(motor1A, ${dutyCycle[0].toFixed(2)}); analogWrite(motor1B, 0);
+                    analogWrite(motor2A, ${dutyCycle[1].toFixed(2)}); analogWrite(motor2B, 0);
+                    analogWrite(motor3A, ${dutyCycle[2].toFixed(2)}); analogWrite(motor3B, 0);
+                    analogWrite(motor4A, ${dutyCycle[3].toFixed(2)}); analogWrite(motor4B, 0);`;
+                        }
+                        if (angle == 180) {
+                            arduinoCodeLoop += `
+                    /** Move at angle ${angle} degrees **/
+                    analogWrite(motor1A, ${dutyCycle[0].toFixed(2)}); analogWrite(motor1B, 0);
+                    analogWrite(motor2A, 0); analogWrite(motor2B, ${dutyCycle[1].toFixed(2)});
+                    analogWrite(motor3A, 0); analogWrite(motor3B, ${dutyCycle[2].toFixed(2)});
+                    analogWrite(motor4A, ${dutyCycle[3].toFixed(2)}); analogWrite(motor4B, 0);`;
+                        }
+                        if (angle > 180) {
+                            arduinoCodeLoop += `
+                    /** Move at angle ${angle} degrees **/
+                    analogWrite(motor1A, 0); analogWrite(motor1B, ${dutyCycle[0].toFixed(2)});
+                    analogWrite(motor2A, 0); analogWrite(motor2B, ${dutyCycle[1].toFixed(2)});
+                    analogWrite(motor3A, 0); analogWrite(motor3B, ${dutyCycle[2].toFixed(2)});
+                    analogWrite(motor4A, 0); analogWrite(motor4B, ${dutyCycle[3].toFixed(2)});`;
+                        }
                     }
                     if (codeJSON.commands[i].includes("/speed")) {
                         console.log(codeJSON.commands[i].match(/\d+/));
                         speed = codeJSON.commands[i].match(/\d+/);
-                        let in_min = 0;
-                        let in_max = 100;
-                        let out_min = 130;
-                        let out_max = 255;
                         if (speed == 0)
                             speedMapped = 0;
                         else
-                            speedMapped = (speed - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+                            speedMapped = map(speed, 0, 100, 130, 255);
                     }
+                    if (codeJSON.commands[i].includes("/loop")) {
+                        loopTimes = codeJSON.commands[i].match(/\d+/);
+                        console.log(codeJSON.commands[i]);
+                        arduinoCodeLoop += `
+                    /** Loop ${loopTimes} times **/
+                    for(int i = 0; i < ${loopTimes}; i++) {`;
+                    }
+                    if (codeJSON.commands[i].includes("/endloop")) {
+                        loopTimes = codeJSON.commands[i].match(/\d+/);
+                        arduinoCodeLoop += `
+                    }
+                    /** Loop End **/`;
+                    }
+                    if (codeJSON.commands[i].includes("/delay")) {
+                        delay = codeJSON.commands[i].match(/\d+/);
+                        arduinoCodeLoop += `
+                    /** Wait ${delay} seconds **/
+                    delay(${delay}*1000)`;
+                    }
+                // TODO functions, conditions
             }
         }
     }
     document.getElementsByClassName('arduinoCodeMain')[0].innerHTML = arduinoCodeMain;
     document.getElementById('arduinoCodeLoop').innerHTML = arduinoCodeLoop;
 }
+let map = (value, x1, y1, x2, y2) => (value - x1) * (y2 - x2) / (y1 - x1) + x2;

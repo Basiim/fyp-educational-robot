@@ -3,7 +3,7 @@
  * 
  * Title: Generator
  * 
- * Version: 0.1
+ * Version: 0.2
  * 
  * Path: /assets/js/generator.js
  * 
@@ -18,9 +18,9 @@
  * 
  * 
  *************************************************************************************/
-
+let condIterator = 0;
 /********** MAIN **********/
-Blockly.JavaScript['input'] = function(block) {
+Blockly.JavaScript['input'] = function (block) {
     var statements_commands = Blockly.JavaScript.statementToCode(block, 'commands');
     var code = '{\n"commands":[' + statements_commands + '"!"]' + '\n' + "}";
     return code;
@@ -29,18 +29,18 @@ Blockly.JavaScript['input'] = function(block) {
 Blockly.JavaScript['forward'] = function (block) {
     return '"forward",';
 };
-Blockly.JavaScript['stop'] = function(block) {
+Blockly.JavaScript['stop'] = function (block) {
     return '"stop",';
 };
-Blockly.JavaScript['backward'] = function(block) {
+Blockly.JavaScript['backward'] = function (block) {
     return '"backward",';
 };
-Blockly.JavaScript['direction'] = function(block) {
+Blockly.JavaScript['direction'] = function (block) {
     var angle_angle = block.getFieldValue('angle');
     var code = `"/angle-${angle_angle}-",`;
     return code;
 };
-Blockly.JavaScript['speed'] = function(block) {
+Blockly.JavaScript['speed'] = function (block) {
     var value_speed = Blockly.JavaScript.valueToCode(block, 'speed', Blockly.JavaScript.ORDER_ATOMIC);
     if (value_speed > 100) {
         alert('Please Enter speed between 0 to 100');
@@ -50,7 +50,7 @@ Blockly.JavaScript['speed'] = function(block) {
     return code;
 };
 /********** LOOPS **********/
-Blockly.JavaScript['repeat'] = function(block) {
+Blockly.JavaScript['repeat'] = function (block) {
     var value_repeat = Blockly.JavaScript.valueToCode(block, 'repeat', Blockly.JavaScript.ORDER_ATOMIC);
     var statements_name = Blockly.JavaScript.statementToCode(block, 'NAME');
     var statements_loop = statements_name;
@@ -62,10 +62,10 @@ Blockly.JavaScript['repeat'] = function(block) {
         return '';
     }
     let code = `${statements_loop}`;
-    return code;
-    //return `"/loop-${value_repeat}-",` + `${statements_name}` + `"/endloop",`;
+    //return code;
+    return `"/loop-${value_repeat}-",` + `${statements_name}` + `"/endloop",`;
 }
-Blockly.JavaScript['for'] = function(block) {
+Blockly.JavaScript['for'] = function (block) {
     var value_for = Blockly.JavaScript.valueToCode(block, 'for', Blockly.JavaScript.ORDER_ATOMIC);
     var dropdown_condition = block.getFieldValue('condition');
     var value_condition = Blockly.JavaScript.valueToCode(block, 'condition', Blockly.JavaScript.ORDER_ATOMIC);
@@ -85,57 +85,61 @@ Blockly.JavaScript['for'] = function(block) {
     var code = `${statements_loops}`;
     return code;
 };
-Blockly.JavaScript['while'] = function(block) {
+Blockly.JavaScript['while'] = function (block) {
     var dropdown_name = block.getFieldValue('NAME');
     var value_number = Blockly.JavaScript.valueToCode(block, 'number', Blockly.JavaScript.ORDER_ATOMIC);
     var code = '...;\n';
     return code;
 };
 /******* CONDITIONS *******/
-Blockly.JavaScript['ifelse'] = function(block) {
-    var value_ifval1 = Blockly.JavaScript.valueToCode(block, 'ifval1', Blockly.JavaScript.ORDER_ATOMIC);
-    var dropdown_ifcond = block.getFieldValue('ifcond');
-    var value_ifval2 = Blockly.JavaScript.valueToCode(block, 'ifval2', Blockly.JavaScript.ORDER_ATOMIC);
-    var statements_if = Blockly.JavaScript.statementToCode(block, 'if');
-    var statements_else = Blockly.JavaScript.statementToCode(block, 'else');
-    if (dropdown_ifcond == 'equal')
-        if (value_ifval1 == value_ifval2)
-            return statements_if;
-        else return statements_else;
-    else if (dropdown_ifcond == 'greater')
-        if (value_ifval1 > value_ifval2)
-            return statements_if;
-        else return statements_else;
-    else {
-        if (value_ifval1 < value_ifval2)
-            return statements_if;
-        else return statements_else;
+Blockly.JavaScript['controls_if'] = block => {
+    let n = 0;
+    let code = '';
+    let finalif = '';
+    let finalelse = '';
+    let cond = false;
+    do {
+        const conditionCode = Blockly.JavaScript.valueToCode(block, 'IF' + n, Blockly.JavaScript.ORDER_NONE) || 'false';
+        console.log(eval(conditionCode));
+        let branchCode = Blockly.JavaScript.statementToCode(block, 'DO' + n);
+        if (Blockly.JavaScript.STATEMENT_SUFFIX) {
+            branchCode = Blockly.JavaScript.prefixLines(
+                Blockly.JavaScript.injectId(Blockly.JavaScript.STATEMENT_SUFFIX, block),
+                Blockly.JavaScript.INDENT) +
+                branchCode;
+        }
+        code += (n > 0 ? ' else ' : '') + 'if (' + conditionCode + ') {\n' +
+            branchCode + '}';
+
+        localStorage.setItem(`Conditional-${condIterator}`, code);
+        // Solve conditionals
+        if (eval(conditionCode)) { // Is true
+            finalif = branchCode;
+            cond = true;
+        }
+        n++;
+    } while (block.getInput('IF' + n));
+
+    if (block.getInput('ELSE') || Blockly.JavaScript.STATEMENT_SUFFIX) {
+        let branchCode = Blockly.JavaScript.statementToCode(block, 'ELSE');
+        if (Blockly.JavaScript.STATEMENT_SUFFIX) {
+            branchCode = Blockly.JavaScript.prefixLines(
+                Blockly.JavaScript.injectId(Blockly.JavaScript.STATEMENT_SUFFIX, block),
+                Blockly.JavaScript.INDENT) +
+                branchCode;
+        }
+        code += ' else {\n' + branchCode + '}';
+        localStorage.setItem(`Conditional-${condIterator}`, code);
+        finalelse = branchCode;
     }
-};
-Blockly.JavaScript['if'] = function(block) {
-    var value_ifval1 = Blockly.JavaScript.valueToCode(block, 'ifval1', Blockly.JavaScript.ORDER_ATOMIC);
-    var dropdown_ifcond = block.getFieldValue('ifcond');
-    var value_ifval2 = Blockly.JavaScript.valueToCode(block, 'ifval2', Blockly.JavaScript.ORDER_ATOMIC);
-    var statements_if = Blockly.JavaScript.statementToCode(block, 'if');
-    if (dropdown_ifcond == 'equal') {
-        if (value_ifval1 == value_ifval2)
-            return statements_if;
-        else
-            return "";
-    } else if (dropdown_ifcond == 'greater') {
-        if (value_ifval1 > value_ifval2)
-            return statements_if;
-        else
-            return "";
-    } else {
-        if (value_ifval1 < value_ifval2)
-            return statements_if;
-        else
-            return "";
-    }
-};
+    if (localStorage.getItem(`Conditional-${condIterator}`))
+        condIterator = condIterator;
+    else
+        condIterator++;
+    return (cond == true ? finalif : finalelse);
+}
 /********** FUNCTIONS **********/
-Blockly.JavaScript['procedures_defnoreturn'] = function(block) {
+Blockly.JavaScript['procedures_defnoreturn'] = function (block) {
     var functionName = block.getFieldValue('NAME');
     var functionStatements = Blockly.JavaScript.statementToCode(block, 'STACK');
 
@@ -150,12 +154,12 @@ Blockly.JavaScript['procedures_callnoreturn'] = function (block) {
 
     if (localStorage.getItem(`${functionName}-args`) != '')
         console.log('Arguments:' + localStorage.getItem(`${functionName}-args`) != '');
-    if (localStorage.getItem(`${functionName}-code`) != '') 
+    if (localStorage.getItem(`${functionName}-code`) != '')
         code = localStorage.getItem(`${functionName}-code`);
     //var code = `"func-${localStorage.functionNameNR}",` + localStorage.functionCodeNR;
     return code;
 };
-Blockly.JavaScript['procedures_defreturn'] = function(block) {
+Blockly.JavaScript['procedures_defreturn'] = function (block) {
     var functionName = block.getFieldValue('NAME');
     var functionStatements = Blockly.JavaScript.statementToCode(block, 'STACK');
     var functionReturn = Blockly.JavaScript.valueToCode(block, 'RETURN');
@@ -172,10 +176,10 @@ Blockly.JavaScript['procedures_callreturn'] = function (block) {
     return code;
 };
 /********** MISC **********/
-Blockly.JavaScript['delay'] = function(block) {
+Blockly.JavaScript['delay'] = function (block) {
     var value_name = Blockly.JavaScript.valueToCode(block, 'delay', Blockly.JavaScript.ORDER_ATOMIC);
     var time = block.getFieldValue('delay');
-    var code = `"${value_name}",`;
+    var code = `"/delay-${value_name}-",`;
     return code;
 };
 

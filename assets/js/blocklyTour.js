@@ -214,4 +214,4 @@ const tour = new Shepherd.Tour({
     id: 'creating'
   });
   
-  tour.start();
+  //tour.start();

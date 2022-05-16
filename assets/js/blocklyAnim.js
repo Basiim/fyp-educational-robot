@@ -3,7 +3,7 @@
  * 
  * Title: Blockly Animation
  * 
- * Version: 0.1
+ * Version: 0.2
  * 
  * Path: /assets/js/blocklyAnim.js
  * 
@@ -32,7 +32,7 @@ let robot = {
 
 let animate = (x = 0, y = 0, time) => {
     console.log(time);
-    tl.to('.anim',{ x: x, y: y, duration: time});
+    tl.to('.anim', { x: x, y: y, duration: time });
 }
 
 let simulate = () => {
@@ -44,9 +44,10 @@ let simulate = () => {
     let posX = 0, posY = 0, time = 0;
     let currentCommand = '', angle = 0, radAngle = 0;
     let speed = 0, speedMapped;
+    let delay = 0;
     animate(posX, posY, 0);
     setTimeout(function () {
-        for (let i = 0; i < codeJSON.commands.length; i++){
+        for (let i = 0; i < codeJSON.commands.length; i++) {
             switch (codeJSON.commands[i]) {
                 case "forward":
                     currentCommand = "forward";
@@ -69,38 +70,40 @@ let simulate = () => {
                         } else if (codeJSON.commands[i].includes("/speed")) {
                             currentCommand = "speed";
                             speed = codeJSON.commands[i].match(/\d+/);
-                            speedMapped = (0.62*speed)/100;
+                            speedMapped = (0.62 * speed) / 100;
                         } else if (codeJSON.commands[i].includes("/loop")) {
                             console.log('blabla');
-                        }else if (codeJSON.commands[i].includes("/endloop")) {
+                        } else if (codeJSON.commands[i].includes("/endloop")) {
                             console.log('blabla');
-                        } else { // Delay
-                            console.log('Delay: ' + codeJSON.commands[i]);
+                        } else if (codeJSON.commands[i].includes("/delay")) { // Delay
+                            delay = codeJSON.commands[i].match(/\d+/);
+                            //console.log('Delay: ' + codeJSON.commands[i]);
                             if (currentCommand == '')
                                 break
                             else {
                                 if (currentCommand == "forward") {
-                                    posY += -(codeJSON.commands[i] * 10);
-                                    time = codeJSON.commands[i];
+                                    posY += speed * -(1);
+                                    time = delay;
                                 }
                                 if (currentCommand == "backward") {
-                                    posY += (codeJSON.commands[i] * 10);
-                                    time = codeJSON.commands[i];
+                                    posY += speed * (1);
+                                    time = delay;
                                 }
                                 if (currentCommand == "angle") {
                                     console.log(speed);
                                     posY += speed * -Math.sin(radAngle); // Distance * sin(angle)
                                     posX += speed * Math.cos(radAngle);
-                                    time = codeJSON.commands[i];
+                                    time = delay;
                                 }
                             }
                         }
                         calculateSpeeds(speedMapped, radAngle);
                         animate(posX, posY, time);
+                        time = 0;
                     }
             }
         }
-    }, 1000);   
+    }, 1000);
 }
 
 let calculateSpeeds = (magnitude, radAngle) => {
@@ -109,16 +112,16 @@ let calculateSpeeds = (magnitude, radAngle) => {
     robot.Vy = magnitude * Math.sin(radAngle);
 
     // Calculating Individual Wheel speed (Inverse Kinematics)
-    robot.U[0] = Math.abs((0.25) * (((robot.Vy - robot.Vx) * 100) + (robot.len - robot.wid) * robot.omega)); 
-    robot.U[1] = Math.abs((0.25) * (((robot.Vy + robot.Vx) * 100) - (robot.len - robot.wid) * robot.omega)); 
-    robot.U[2] = Math.abs((0.25) * (((robot.Vy - robot.Vx) * 100) - (robot.len - robot.wid) * robot.omega)); 
+    robot.U[0] = Math.abs((0.25) * (((robot.Vy - robot.Vx) * 100) + (robot.len - robot.wid) * robot.omega));
+    robot.U[1] = Math.abs((0.25) * (((robot.Vy + robot.Vx) * 100) - (robot.len - robot.wid) * robot.omega));
+    robot.U[2] = Math.abs((0.25) * (((robot.Vy - robot.Vx) * 100) - (robot.len - robot.wid) * robot.omega));
     robot.U[3] = Math.abs((0.25) * (((robot.Vy + robot.Vx) * 100) + (robot.len - robot.wid) * robot.omega));
 
     //document.getElementById('speeds').innerText = `Wheel1: ${robot.U[0]} Wheel2: ${robot.U[1]} Wheel3: ${robot.U[2]} Wheel4: ${robot.U[3]}`;
     console.log(`
-        Wheel1: ${robot.U[0]} 
+        Wheel1: ${robot.U[0]}
         Wheel2: ${robot.U[1]} 
         Wheel3: ${robot.U[2]} 
         Wheel4: ${robot.U[3]}
-    `)
+    `);
 }
