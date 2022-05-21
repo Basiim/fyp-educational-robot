@@ -132,7 +132,7 @@ Blockly.JavaScript['controls_if'] = block => {
         localStorage.setItem(`Conditional-${condIterator}`, code);
         finalelse = branchCode;
     }
-    if (localStorage.getItem(`Conditional-${condIterator}`))
+    if (localStorage.getItem(`Conditional-${condIterator}`).exists())
         condIterator = condIterator;
     else
         condIterator++;
