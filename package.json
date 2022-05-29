@@ -28,6 +28,7 @@
         "express-handlebars": "^6.0.2",
         "file-saver": "^2.0.5",
         "font-awesome": "^4.7.0",
+        "fs": "^0.0.1-security",
         "highlight.js": "^11.5.0",
         "http": "0.0.1-security",
         "ip": "^1.1.5",

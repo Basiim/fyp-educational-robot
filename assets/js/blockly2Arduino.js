@@ -21,7 +21,12 @@
 let showCodeArd = () => {
     Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
     let code = Blockly.JavaScript.workspaceToCode(workspace);
-    let codeJSON = JSON.parse(code);
+    let codeJSON;
+    code = code.split(';');
+    if (code[1])
+        codeJSON = JSON.parse(code[1]);
+    else
+        codeJSON = JSON.parse(code[0]);
     let index = codeJSON.commands.indexOf("end");
     let arduinoCodeMain = '';
     let arduinoCodeLoop = '';

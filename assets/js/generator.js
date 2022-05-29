@@ -132,10 +132,10 @@ Blockly.JavaScript['controls_if'] = block => {
         localStorage.setItem(`Conditional-${condIterator}`, code);
         finalelse = branchCode;
     }
-    if (localStorage.getItem(`Conditional-${condIterator}`).exists())
+    /*if (localStorage.getItem(`Conditional-${condIterator}`).exists())
         condIterator = condIterator;
     else
-        condIterator++;
+        condIterator++;*/
     return (cond == true ? finalif : finalelse);
 }
 /********** FUNCTIONS **********/
@@ -183,4 +183,32 @@ Blockly.JavaScript['delay'] = function (block) {
     return code;
 };
 
+Blockly.JavaScript['variables_get'] = function (block) {
+    // Variable getter.
+    const code = Blockly.JavaScript.nameDB_.getName(block.getFieldValue('VAR'), 'VARIABLE');
+    let value;
+    if (code == "Range2")
+        value = localStorage.getItem(`Range`);
+    else if (code == "Accelerometer")
+        value = localStorage.getItem(`IMUa`);
+    else if (code == "Gyroscope")
+        value = localStorage.getItem(`IMUg`);
+    else if (code == "Magnetometer")
+        value = localStorage.getItem(`IMUm`);
+    else
+        value = localStorage.getItem(`${code}`);
+    console.log(value);
+    console.log(code);
+    return [value, Blockly.JavaScript.ORDER_ATOMIC];
+};
 
+Blockly.JavaScript['variables_set'] = function (block) {
+    // Variable setter.
+    const argument0 = Blockly.JavaScript.valueToCode(
+        block, 'VALUE', Blockly.JavaScript.ORDER_ASSIGNMENT) || '0';
+    const varName = Blockly.JavaScript.nameDB_.getName(block.getFieldValue('VAR'), 'VARIABLE');
+    localStorage.setItem(`${varName}`, argument0);
+    return `"/var-${varName}-${argument0}",`;
+};
+Blockly.JavaScript['variables_get_dynamic'] = Blockly.JavaScript['variables_get'];
+Blockly.JavaScript['variables_set_dynamic'] = Blockly.JavaScript['variables_set'];

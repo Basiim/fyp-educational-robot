@@ -65,7 +65,6 @@ button:hover {
   border: none;
   outline: none;
   cursor: pointer;
-  width: 100%;
   padding: 14px 16px;
   transition: 0.3s;
 }
@@ -104,6 +103,7 @@ button:hover {
 }
 .arduinoCodeCode {
   width: 65%;
+  height: 70vh;
 }
 .arduinoCodeDiv {
   height: 65vh;
@@ -226,7 +226,7 @@ a {
     padding: 0 3% 0 3%;
   }
   .blocklyClass {
-    height: 65vh;
+    height: 70vh;
     width: 100%;
   }
   .hamburger,

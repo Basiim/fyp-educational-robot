@@ -38,7 +38,12 @@ let animate = (x = 0, y = 0, time) => {
 let simulate = () => {
     Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
     let code = Blockly.JavaScript.workspaceToCode(workspace);
-    let codeJSON = JSON.parse(code);
+    let codeJSON;
+    code = code.split(';');
+    if (code[1])
+        codeJSON = JSON.parse(code[1]);
+    else
+        codeJSON = JSON.parse(code[0]);
     let index = codeJSON.commands.indexOf("end");
     codeJSON.commands.splice(index, 1);
     let posX = 0, posY = 0, time = 0;
