@@ -31,7 +31,7 @@ app.set('views', dirPath);
 
 /********** PAGES **********/
 app.get("/", function (req, res) {
-    res.render('index.ejs', { title: "Educational Bot", state: "Free", mainCode: "Main Test", loopCode: "loop Test" });
+    res.render('index.ejs', { title: "Blockly Bot", state: "Free", mainCode: "Main Test", loopCode: "loop Test" });
 });
 
 /********** SENSOR DATA **********/
@@ -48,9 +48,13 @@ app.get("/sensors/range/:data", function (req, res) {
     console.log(obj);
     var json = JSON.stringify(obj);
     fs.writeFile('sensorData.json', json, 'utf8', () => {
-        res.json(obj);
+        //res.json(obj);
+        res.status(200);
+        res.destroy();
     });
-    res.json(obj);
+    //res.json(obj);
+    res.status(200);
+    res.destroy();
 })
 app.get("/sensors/imu/accelerometer/:data", function (req, res) {
     fs.readFile('sensorData.json', 'utf8', (err, data) => {

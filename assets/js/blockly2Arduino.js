@@ -50,14 +50,14 @@ let showCodeArd = () => {
             || codeJSON.commands[i].includes('/delay')) {
             arduinoCodeMain = `
                     /** Motor control pins **/
-                    const int motor1A 10; const int motor1B 11;
-                    const int motor2A 12; const int motor2B 13;
-                    const int motor3A 14; const int motor3B 15;
-                    const int motor4A 16; const int motor4B 17;
+                    const int motor1A 2; const int motor1B 4;
+                    const int motor2A 7; const int motor2B 8;
+                    const int motor3A 10; const int motor3B 11;
+                    const int motor4A 12; const int motor4B 13;
 
                     /** PWM Pins **/
-                    const int PWM1 18; const int PWM2 19;
-                    const int PWM3 20; const int PWM4 21;
+                    const int PWM1 3; const int PWM2 5;
+                    const int PWM3 6; const int PWM4 9;
 
                     pinMode(motor1A, OUTPUT); pinMode(motor1B, OUTPUT);
                     pinMode(motor2A, OUTPUT); pinMode(motor2B, OUTPUT);

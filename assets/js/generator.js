@@ -37,6 +37,12 @@ Blockly.JavaScript['backward'] = function (block) {
 };
 Blockly.JavaScript['direction'] = function (block) {
     var angle_angle = block.getFieldValue('angle');
+    if (angle_angle >= 0 && angle_angle < 10)
+        angle_angle = "00" + angle_angle;
+    else if (angle_angle >= 10 && angle_angle < 100)
+        angle_angle = "0" + angle_angle;
+    else
+        angle_angle = angle_angle;
     var code = `"/angle-${angle_angle}-",`;
     return code;
 };
@@ -45,6 +51,13 @@ Blockly.JavaScript['speed'] = function (block) {
     if (value_speed > 100) {
         alert('Please Enter speed between 0 to 100');
         return '';
+    } else if (value_speed == 100) {
+        value_speed = value_speed;
+    }
+    else if (value_speed < 100 && value_speed > 9) {
+        value_speed = "0" + value_speed;
+    } else {
+        value_speed = "00" + value_speed;
     }
     var code = `"/speed-${value_speed}-",`;
     return code;
@@ -53,15 +66,14 @@ Blockly.JavaScript['speed'] = function (block) {
 Blockly.JavaScript['repeat'] = function (block) {
     var value_repeat = Blockly.JavaScript.valueToCode(block, 'repeat', Blockly.JavaScript.ORDER_ATOMIC);
     var statements_name = Blockly.JavaScript.statementToCode(block, 'NAME');
-    var statements_loop = statements_name;
-    for (var i = 1; i < value_repeat; i++) {
-        statements_loop = statements_loop + statements_name;
-    }
     if (value_repeat == 0) {
         alert('kindly start from 1');
         return '';
     }
-    let code = `${statements_loop}`;
+    let code = ``;
+    for (let i = 0; i < value_repeat; i++) {
+        code += statements_name;
+    }
     //return code;
     return `"/loop-${value_repeat}-",` + `${statements_name}` + `"/endloop",`;
 }
@@ -179,6 +191,12 @@ Blockly.JavaScript['procedures_callreturn'] = function (block) {
 Blockly.JavaScript['delay'] = function (block) {
     var value_name = Blockly.JavaScript.valueToCode(block, 'delay', Blockly.JavaScript.ORDER_ATOMIC);
     var time = block.getFieldValue('delay');
+    if (value_name >= 0 && value_name < 10)
+        value_name = "00" + value_name;
+    else if (value_name >= 10 && value_name < 100)
+        value_name = "0" + value_name;
+    else
+        value_name = value_name;
     var code = `"/delay-${value_name}-",`;
     return code;
 };

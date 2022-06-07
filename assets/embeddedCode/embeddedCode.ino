@@ -5,7 +5,7 @@
  * 
  * Version: 0.1
  * 
- * Authors: Basim Abdullah Tariq
+ * Authors: 
  *          
  * 
  * Description: This file contains the functions that are used to perform various 
@@ -17,16 +17,25 @@
  * 
  *************************************************************************************/
 #include <WiFi.h>
+#include "NewPing.h"
 #include <HTTPClient.h>
 #include <math.h>
 
 #define LEN 5.5
 #define WID 11
 #define RADIUS 4
+#define TRIGGER_PIN 14
+#define ECHO_PIN 12
+#define MAX_DISTANCE 400
 
 const char* ssid = "Humara robot";
 const char* password = "ameen123";
+String serverName = "http://192.168.4.2:3000/sensors/range/";
+String serverPath;
 
+float rangeSensor;
+
+NewPing sonar(TRIGGER_PIN, ECHO_PIN, MAX_DISTANCE);
 WiFiServer server(80);
 String header;
 String commands[20];
@@ -66,6 +75,7 @@ void getComponents(int angle);
 void getSpeeds(float vx, float vy, float omega);
 void calculateDutyCycle();
 void runMotors(int angle);
+void postRequest(String req);
 
 void setup() {
   Serial.begin(115200);
@@ -136,28 +146,40 @@ void loop() {
               idx++;
             }
             else if(header.indexOf("GET /delay") >= 0){
-              commands[idx] = "delay";
-              idx++;
               int x = header.indexOf("-");
               inputDelay.setCharAt(0,header[x+1]);
               inputDelay.setCharAt(1,header[x+2]);
-              inputDelay.setCharAt(1,header[x+3]);
+              inputDelay.setCharAt(2,header[x+3]);
+              String newString = "delay";
+              newString.concat("-");
+              newString.concat(inputDelay);
+              Serial.println(newString);
+              commands[idx] = newString;
+              idx++;
             }
             else if(header.indexOf("GET /angle") >= 0){
-              commands[idx] = "angle";
-              idx++;
               int x = header.indexOf("-");
               inputAngle.setCharAt(0,header[x+1]);
               inputAngle.setCharAt(1,header[x+2]);
-              inputAngle.setCharAt(1,header[x+3]);
+              inputAngle.setCharAt(2,header[x+3]);
+              String newString = "angle";
+              newString.concat("-");
+              newString.concat(inputAngle);
+              Serial.println(newString);
+              commands[idx] = newString;
+              idx++;
             }
             else if(header.indexOf("GET /speed") >= 0){
-              commands[idx] = "speed";
-              idx++;
               int x = header.indexOf("-");
               inputSpeed.setCharAt(0,header[x+1]);
               inputSpeed.setCharAt(1,header[x+2]);
-              inputSpeed.setCharAt(1,header[x+3]);
+              inputSpeed.setCharAt(2,header[x+3]);
+              String newString = "speed";
+              newString.concat("-");
+              newString.concat(inputSpeed);
+              Serial.println(newString);
+              commands[idx] = newString;
+              idx++;
             }
             else if(header.indexOf("GET /loop") >= 0){
               commands[idx] = "loop";
@@ -165,7 +187,7 @@ void loop() {
               int x = header.indexOf("-");
               inputLoop.setCharAt(0,header[x+1]);
               inputLoop.setCharAt(1,header[x+2]);
-              inputLoop.setCharAt(1,header[x+3]);
+              inputLoop.setCharAt(2,header[x+3]);
             }
             else if(header.indexOf("GET /endloop") >= 0){
               commands[idx] = "endloop";
@@ -193,6 +215,12 @@ void loop() {
       Serial.println("Client Disconnected");
       Serial.println("");
   }
+  /***** SENSORS *****/
+  rangeSensor = sonar.ping_cm();
+  postRequest(String(rangeSensor));
+  delay(500);
+  //Serial.print("Distance: ");
+  //`Serial.println(rangeSensor);
 }
 
 void commandHandler(int fin){
@@ -211,12 +239,39 @@ void commandHandler(int fin){
       ledcWrite(ledChannel3A, 255);  ledcWrite(ledChannel3B, 255);
       ledcWrite(ledChannel4A, 255);  ledcWrite(ledChannel4B, 255);
     }
-    if(commands[i] == "delay")
-      delay((inputDelay.toInt())*1000);
-    if(commands[i] == "angle")
-      routineCalls(inputAngle.toInt());
-    if(commands[i] == "speed")
-      Robot.magnitude = (0.62 * inputSpeed.toInt())/100; //0.62= linear velocity of robot calculated by rpm
+    if(commands[i].indexOf("delay") >= 0){
+      int x = commands[i].indexOf("-");
+      String cmd = commands[i];
+      String currentDelay = "000";
+      currentDelay.setCharAt(0,cmd[x+1]);
+      currentDelay.setCharAt(1,cmd[x+2]);
+      currentDelay.setCharAt(2,cmd[x+3]);
+      Serial.print("Delay: ");
+      Serial.println(currentDelay);
+      delay((currentDelay.toInt())*1000);
+    }
+    if(commands[i].indexOf("angle") >= 0){
+      int x = commands[i].indexOf("-");
+      String cmd = commands[i];
+      String currentAngle = "000";
+      currentAngle.setCharAt(0,cmd[x+1]);
+      currentAngle.setCharAt(1,cmd[x+2]);
+      currentAngle.setCharAt(2,cmd[x+3]);
+      Serial.print("Angle: ");
+      Serial.println(currentAngle);
+      routineCalls(currentAngle.toInt());
+    }
+    if(commands[i].indexOf("speed") >= 0){
+      int x = commands[i].indexOf("-");
+      String cmd = commands[i];
+      String currentSpeed = "000";
+      currentSpeed.setCharAt(0,cmd[x+1]);
+      currentSpeed.setCharAt(1,cmd[x+2]);
+      currentSpeed.setCharAt(2,cmd[x+3]);
+      Serial.print("Speed: ");
+      Serial.println(currentSpeed);
+      Robot.magnitude = (0.62 * currentSpeed.toInt())/100; //0.62= linear velocity of robot calculated by rpm
+    }
     if(commands[i] == "loop")
       break;
     if(commands[i] == "endloop")
@@ -248,12 +303,21 @@ void calculateDutyCycle(){
   for(int i = 0; i < 4; i++)
     if(Robot.u[i] > maxSpeed)
       maxSpeed = Robot.u[i];
-
-  int mappedMax = (inputSpeed.toInt(),0,100,130,255);
-  Robot.dutyCycle[0]= map(Robot.u[1], -maxSpeed, maxSpeed, 0, mappedMax);
-  Robot.dutyCycle[1]= map(Robot.u[0], -maxSpeed, maxSpeed, 0, mappedMax);
-  Robot.dutyCycle[2]= map(Robot.u[2], -maxSpeed, maxSpeed, 0, mappedMax);
-  Robot.dutyCycle[3]= map(Robot.u[3], -maxSpeed, maxSpeed, 0, mappedMax);
+  maxSpeed = maxSpeed * 10;
+  int mappedMax = map(inputSpeed.toInt(),0,100,100,255);
+  Serial.print("U's: ");
+  Serial.print(Robot.u[1]);
+  Serial.print(Robot.u[0]);
+  Serial.print(Robot.u[2]);
+  Serial.println(Robot.u[3]);
+  Serial.print("Max Speed: ");
+  Serial.println(maxSpeed);
+  Serial.print("Mapped Max: ");
+  Serial.println(mappedMax);
+  Robot.dutyCycle[0]= map(Robot.u[1]*10, 0, maxSpeed, 0, mappedMax);
+  Robot.dutyCycle[1]= map(Robot.u[0]*10, 0, maxSpeed, 0, mappedMax);
+  Robot.dutyCycle[2]= map(Robot.u[2]*10, 0, maxSpeed, 0, mappedMax);
+  Robot.dutyCycle[3]= map(Robot.u[3]*10, 0, maxSpeed, 0, mappedMax);
   Serial.print("Duty Cycles: ");
   Serial.print(Robot.dutyCycle[0]);
   Serial.print(Robot.dutyCycle[1]);
@@ -286,4 +350,25 @@ void runMotors(int angle){
    ledcWrite(ledChannel4A, 0); ledcWrite(ledChannel4B, Robot.dutyCycle[2]);
    ledcWrite(ledChannel3A, 0); ledcWrite(ledChannel3B, Robot.dutyCycle[3]); 
   } 
+}
+
+void postRequest(String req){
+     HTTPClient http;
+     serverPath = serverName + req;
+     Serial.println(serverPath);
+     // Your Domain name with URL path or IP address with path
+     http.begin(serverPath.c_str());
+     // Send HTTP GET request
+     int httpResponseCode = http.GET();
+     if (httpResponseCode>0) {
+      Serial.print("HTTP Response code: ");
+      Serial.println(httpResponseCode);
+      String payload = http.getString();
+    }
+    else {
+      Serial.print("Error code: ");
+      Serial.println(httpResponseCode);
+    }
+    // Free resources
+    http.end();
 }

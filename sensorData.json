@@ -1,1 +1,1 @@
-{"sensors":{"range":"5","imu":{"accelerometer":"10","gyroscope":"10.5","magnetometer":"3.5"}}}
+{"sensors":{"range":"0.00","imu":{"accelerometer":"10","gyroscope":"5","magnetometer":"7"}}}

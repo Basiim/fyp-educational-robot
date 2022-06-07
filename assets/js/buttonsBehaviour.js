@@ -120,6 +120,7 @@ let runCode = () => {
                         url = url + codeJSON.commands[i];
                     } else if (codeJSON.commands[i].includes("/speed")) {
                         url = url + codeJSON.commands[i];
+                        console.log(codeJSON.commands[i]);
                     }
                     else if (codeJSON.commands[i].includes("/loop")) {
                         break; // ignore
@@ -128,7 +129,7 @@ let runCode = () => {
                         break; // ignore
                         //url = url + codeJSON.commands[i];
                     } else if (codeJSON.commands[i].includes("/delay")) {
-                        url = url + `-${codeJSON.commands[i]}`;
+                        url = url + `${codeJSON.commands[i]}`;
                     }
                     sendReq(url);
                 }
@@ -189,5 +190,5 @@ let saveData = (data) => {
     localStorage.setItem("IMUa", imu.accelerometer);
     localStorage.setItem("IMUg", imu.gyroscope);
     localStorage.setItem("IMUm", imu.magnetometer);
-    console.log(`Range: ${rangeSensor} | Acceleromter: ${imu.accelerometer} | Gyroscope: ${imu.gyroscope} | Magnetometer: ${imu.magnetometer}`);
+    //console.log(`Range: ${rangeSensor} | Acceleromter: ${imu.accelerometer} | Gyroscope: ${imu.gyroscope} | Magnetometer: ${imu.magnetometer}`);
 }
