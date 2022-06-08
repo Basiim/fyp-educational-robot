@@ -217,8 +217,8 @@ void loop() {
   }
   /***** SENSORS *****/
   rangeSensor = sonar.ping_cm();
-  postRequest(String(rangeSensor));
-  delay(500);
+  //postRequest(String(rangeSensor));
+  //delay(500);
   //Serial.print("Distance: ");
   //`Serial.println(rangeSensor);
 }

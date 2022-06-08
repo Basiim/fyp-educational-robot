@@ -35,7 +35,7 @@ app.get("/", function (req, res) {
 });
 
 /********** SENSOR DATA **********/
-app.get("/sensors/range/:data", function (req, res) {
+/*app.get("/sensors/range/:data", function (req, res) {
     fs.readFile('sensorData.json', 'utf8', (err, data) => {
         if (err) {
             console.log(err);
@@ -55,7 +55,7 @@ app.get("/sensors/range/:data", function (req, res) {
     //res.json(obj);
     res.status(200);
     res.destroy();
-})
+})*/
 app.get("/sensors/imu/accelerometer/:data", function (req, res) {
     fs.readFile('sensorData.json', 'utf8', (err, data) => {
         if (err) {
