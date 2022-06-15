@@ -79,7 +79,7 @@ void postRequest(String req);
 
 void setup() {
   Serial.begin(115200);
-
+  attachInterrupt(ECHO_PIN, ISR, FALLING);
   // Initializing GPIO pins
   pinMode(motor1A, OUTPUT); pinMode(motor1B, OUTPUT);
   pinMode(motor2A, OUTPUT); pinMode(motor2B, OUTPUT);
@@ -217,8 +217,8 @@ void loop() {
   }
   /***** SENSORS *****/
   rangeSensor = sonar.ping_cm();
-  //postRequest(String(rangeSensor));
-  //delay(500);
+  postRequest(String(rangeSensor));
+  delay(500);
   //Serial.print("Distance: ");
   //`Serial.println(rangeSensor);
 }
@@ -351,23 +351,26 @@ void runMotors(int angle){
    ledcWrite(ledChannel3A, 0); ledcWrite(ledChannel3B, Robot.dutyCycle[3]); 
   } 
 }
-
+void ISR(){
+  Serial.println("In interrupt");
+}
 void postRequest(String req){
      HTTPClient http;
      serverPath = serverName + req;
-     Serial.println(serverPath);
+     //Serial.println(serverPath);
      // Your Domain name with URL path or IP address with path
      http.begin(serverPath.c_str());
      // Send HTTP GET request
      int httpResponseCode = http.GET();
      if (httpResponseCode>0) {
-      Serial.print("HTTP Response code: ");
-      Serial.println(httpResponseCode);
+      //Serial.print("HTTP Response code: ");
+      //Serial.println(httpResponseCode);
       String payload = http.getString();
     }
     else {
-      Serial.print("Error code: ");
-      Serial.println(httpResponseCode);
+      //Serial.print("Error code: ");
+      //Serial.println(httpResponseCode);
+      Serial.println();
     }
     // Free resources
     http.end();

@@ -19,7 +19,7 @@
 <body>
     <div class="spacer"></div>
     <div class="navigation">
-        <h1>Educational Bot</h1>
+        <h1>BlocklyBot</h1>
         <ul>
             <li class="list active">
                 <a class="tablinks blockBtn" onclick="selectTab(event,'Blockly')" id="defaultOpen">
@@ -134,6 +134,8 @@
             <xml class="toolboxClass" id="toolbox" style="display: none;">
                 <category name="START" colour="#00d080" toolboxitemid="start">
                     <block type="input" disabled='disabled'></block>
+                    <block type="block_type"></block>
+                    <block type="bot"></block>
                 </category>
                 <category name="MOVEMENT" colour="#07b7a6" toolboxitemid="movement">
                     <block type="forward"></block>

@@ -18,6 +18,14 @@ const port = process.env.PORT || 3000;
 }*/
 let obj;
 app.use(bodyParser.urlencoded({ extend: true }));
+app.use("/home", express.static(__dirname + "/landingPage"));
+app.use("/landingPage/dist/css", express.static(__dirname + "/landingPage/dist/css"));
+app.use("/landingPage/dist/js", express.static(__dirname + "/landingPage/dist/js"));
+app.use("/landingPage/dist/images", express.static(__dirname + "/landingPage/dist/images"));
+app.use("/landingPage/src/scss", express.static(__dirname + "/landingPage/src/scss"));
+app.use("/landingPage/src/js", express.static(__dirname + "/landingPage/src/js"));
+app.use("/landingPage/src/images", express.static(__dirname + "/landingPage/src/images"));
+
 app.use("/", express.static(__dirname + "/"));
 app.use("/assets/css", express.static(__dirname + "/assets/css"));
 app.use("/assets/js", express.static(__dirname + "/assets/js"));
@@ -31,17 +39,27 @@ app.set('views', dirPath);
 
 /********** PAGES **********/
 app.get("/", function (req, res) {
+    res.redirect("/home")
+})
+app.get("/home", function (req, res) {
+    res.sendFile(__dirname + '/landingPage/index.html');
+});
+app.get("/app", function (req, res) {
     res.render('index.ejs', { title: "Blockly Bot", state: "Free", mainCode: "Main Test", loopCode: "loop Test" });
 });
 
 /********** SENSOR DATA **********/
-/*app.get("/sensors/range/:data", function (req, res) {
+app.get("/sensors/range/:data", function (req, res) {
     fs.readFile('sensorData.json', 'utf8', (err, data) => {
         if (err) {
             console.log(err);
             return
         }
-        obj = JSON.parse(data);
+        try {
+            obj = JSON.parse(data);
+        } catch (err) {
+            console.log('Error catched:', err);
+        }
         //console.log(obj);
     })
     obj.sensors.range = req.params.data;
@@ -52,10 +70,10 @@ app.get("/", function (req, res) {
         res.status(200);
         res.destroy();
     });
-    //res.json(obj);
-    res.status(200);
-    res.destroy();
-})*/
+    res.json(obj);
+    //res.status(200);
+    //res.destroy();
+})
 app.get("/sensors/imu/accelerometer/:data", function (req, res) {
     fs.readFile('sensorData.json', 'utf8', (err, data) => {
         if (err) {
@@ -126,3 +144,5 @@ app.listen(port, function () {
 async function readFile() {
 
 }
+
+// Prism js

@@ -199,3 +199,26 @@ Blockly.Blocks['delay'] = {
         this.setHelpUrl("");
     }
 };
+
+Blockly.Blocks['block_type'] = {
+    init: function () {
+        this.appendValueInput("NAME")
+            .setCheck(null)
+            .appendField("Blockly");
+        this.setInputsInline(false);
+        this.setColour("#000");
+        this.setTooltip("");
+        this.setHelpUrl("");
+    }
+};
+Blockly.Blocks['bot'] = {
+    init: function () {
+        this.appendDummyInput()
+            .appendField("Bot");
+        this.setInputsInline(false);
+        this.setOutput(true, null);
+        this.setColour("#29fd53");
+        this.setTooltip("");
+        this.setHelpUrl("");
+    }
+};
