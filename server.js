@@ -60,19 +60,15 @@ app.get("/sensors/range/:data", function (req, res) {
         } catch (err) {
             console.log('Error catched:', err);
         }
-        //console.log(obj);
     })
     obj.sensors.range = req.params.data;
     console.log(obj);
     var json = JSON.stringify(obj);
     fs.writeFile('sensorData.json', json, 'utf8', () => {
-        //res.json(obj);
         res.status(200);
         res.destroy();
     });
     res.json(obj);
-    //res.status(200);
-    //res.destroy();
 })
 app.get("/sensors/imu/accelerometer/:data", function (req, res) {
     fs.readFile('sensorData.json', 'utf8', (err, data) => {
@@ -81,7 +77,6 @@ app.get("/sensors/imu/accelerometer/:data", function (req, res) {
             return
         }
         obj = JSON.parse(data);
-        //console.log(obj);
     })
     obj.sensors.imu.accelerometer = req.params.data;
     var json = JSON.stringify(obj);
@@ -97,7 +92,6 @@ app.get("/sensors/imu/gyroscope/:data", function (req, res) {
             return
         }
         obj = JSON.parse(data);
-        //console.log(obj);
     })
     obj.sensors.imu.gyroscope = req.params.data;
     var json = JSON.stringify(obj);
@@ -113,7 +107,6 @@ app.get("/sensors/imu/magnetometer/:data", function (req, res) {
             return
         }
         obj = JSON.parse(data);
-        //console.log(obj);
     })
     obj.sensors.imu.magnetometer = req.params.data;
     var json = JSON.stringify(obj);
@@ -125,7 +118,6 @@ app.get("/sensors/imu/magnetometer/:data", function (req, res) {
 
 /********** STATE **********/
 app.get("/ack", function (req, res) {
-    //console.log('Ack recived');
     status = 'busy';
     res.destroy();
 })
@@ -137,12 +129,5 @@ app.get("/free", function (req, res) {
 app.listen(port, function () {
     console.log("Server is Live");
     console.log(ip.address());
-    // TODO study pkg documentation and make .exe work
     //open('http://localhost:3000');
 })
-
-async function readFile() {
-
-}
-
-// Prism js

@@ -1440,6 +1440,9 @@ label {
 	width: 368px;
 	max-width: 368px;
 	flex-grow: 1;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 .pricing-table::before {
 	content: "";
@@ -1458,15 +1461,15 @@ label {
 .pricing-table-header,
 .pricing-table-features-title,
 .pricing-table-features li {
-	border-bottom: 1px solid rgba(138, 148, 167, 0.24);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
 }
 .pricing-table-inner {
-	position: relative;
 	display: flex;
 	flex-wrap: wrap;
-	background: #2c3039;
 	padding: 24px;
-	height: 100%;
 }
 .pricing-table-inner > * {
 	position: relative;
@@ -1481,6 +1484,21 @@ label {
 	left: 0;
 	box-shadow: 0 24px 48px rgba(21, 24, 29, 0.24);
 	mix-blend-mode: multiply;
+}
+.pricing-table-price {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+}
+.aboutSocials {
+	width: 100px;
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+}
+.aboutSocials-link:hover {
+	color: #0475de;
 }
 .pricing-table-price-currency {
 	color: #8a94a7;
